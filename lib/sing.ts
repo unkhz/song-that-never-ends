@@ -1,4 +1,4 @@
-import { say } from './say'
+import { say } from './apple'
 import { typeLine } from './tools'
 
 function removeIndentation(str: string) {
