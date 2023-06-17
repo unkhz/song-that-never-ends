@@ -1,8 +1,8 @@
 export const choruses = [
-  // `This is the song, iteration zero,
-  // It's got a beat, but it's not a hero,
-  // To feel the rhythm, my dear friend,
-  // You need to hear the song that never ends...`,
+  `This is the song, iteration zero,
+  It's got a beat, but it's not a hero,
+  To feel the rhythm, my dear friend,
+  You need to hear the song that never ends...`,
 
   `This is the song, iteration one,
   Yes, it goes on and on, it's just begun,
@@ -147,11 +147,6 @@ export const choruses = [
   `This is the song, iteration twenty-nine,
   Yes, it goes on and on, like fine wine,
   To grasp the melody, my dear friend,
-  You need to hear the song that never ends...`,
-
-  `This is the song, iteration thirty,
-  It's got a rhythm, that's so sturdy,
-  To understand the beat, my dear friend,
   You need to hear the song that never ends...`,
 
   `This is the song, iteration thirty,
@@ -406,6 +401,56 @@ export const choruses = [
 
   `This is the song, iteration eighty,
   It's got a beat, that's always steady,
+  To feel the beat, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-one,
+  Yes, it goes on and on, like a fun run,
+  To comprehend the rhythm, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-two,
+  It's got a beat that's always true,
+  To catch the tempo, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-three,
+  Yes, it goes on and on, like the free sea,
+  To grasp the melody, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-four,
+  It's got a rhythm you can't ignore,
+  To feel the rhythm, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-five,
+  Yes, it goes on and on, it's so alive,
+  To appreciate the beat, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-six,
+  It's got a tune that truly clicks,
+  To understand the tempo, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-seven,
+  Yes, it goes on and on, like a leaven,
+  To catch the harmony, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-eight,
+  It's got a rhythm, that's truly great,
+  To feel the vibes, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration eighty-nine,
+  Yes, it goes on and on, like a fine wine,
+  To appreciate the melody, my dear friend,
+  You need to hear the song that never ends...`,
+
+  `This is the song, iteration ninety,
+  It's got a beat, always ready,
   To feel the beat, my dear friend,
   You need to hear the song that never ends...`,
 

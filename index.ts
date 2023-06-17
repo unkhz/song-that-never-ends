@@ -1,32 +1,9 @@
-import * as song from './song'
-import { numbers } from './lib/numbers'
+import song from './song'
 import { sing } from './lib/sing'
 import { argv } from 'process'
 
 const [_, __, voice = 'Daniel'] = argv
 
-function pickVariation(variations: string[], idx: number) {
-  return variations[idx % variations.length]
-}
-
-for (let hun = 0; hun < 10; hun++) {
-  const { choruses, finalChoruses, firstVerse, secondVerse, thirdVerse } = song
-  const chorusesForHundred = hun > 0 ? choruses.slice(1) : choruses
-  for (let n = 0; n < chorusesForHundred.length; n++) {
-    const chorus =
-      hun > 0
-        ? chorusesForHundred[n]
-            .replace('hundred', '')
-            .replace('iteration', `${numbers[hun]} hundred and`)
-        : chorusesForHundred[n]
-
-    await sing(
-      voice,
-      pickVariation(firstVerse, n),
-      pickVariation(secondVerse, n),
-      pickVariation(thirdVerse, n),
-      chorus,
-      pickVariation(finalChoruses, n)
-    )
-  }
+for (const part of song()) {
+  await sing(voice, part)
 }
