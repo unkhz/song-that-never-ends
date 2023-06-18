@@ -5,9 +5,9 @@ import { argv } from 'process'
 const [_, __, voice = 'Daniel'] = argv
 
 // TODO, persist
-let currentIteration = 0
+let currentIteration = 0n
 
-let iteration = 0
+let iteration = 0n
 let ended = false
 while (!ended) {
   const parts = song(iteration)
@@ -22,7 +22,7 @@ while (!ended) {
     // According to Wikipedia (https://en.wikipedia.org/wiki/Names_of_large_numbers),
     // numbers after decillion are not widely standardized, so it's perhaps the
     // best time to start over.
-    currentIteration = 0
+    currentIteration = 0n
   }
   iteration++
 }

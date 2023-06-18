@@ -7,7 +7,7 @@ describe('song', () => {
   ]
   for (const iteration of iterations) {
     it(`should generate iteration ${iteration} of the song`, () => {
-      const songParts = song(iteration)
+      const songParts = song(BigInt(iteration))
       expect(songParts).toMatchSnapshot()
     })
   }

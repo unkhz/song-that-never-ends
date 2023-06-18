@@ -1,5 +1,5 @@
 // Words for powers of a thousand from one thousand (10^3) up to one nonillion (10^30)
-const scales: string[] = [
+const scales = [
   '',
   'thousand',
   'million',
@@ -57,37 +57,38 @@ const tens = [
   'ninety',
 ]
 
-function isExactMultiple(num: number, divisor: number): boolean {
-  return num % divisor === 0
+function isExactMultiple(num: bigint, divisor: bigint): boolean {
+  return num % divisor === 0n
 }
 
-export function numberToWords(num: number): string {
-  if (num < 20) {
-    return unitsAndTeens[num]
-  } else if (num < 100) {
-    const tensWord = tens[Math.floor(num / 10)]
-    return isExactMultiple(num, 10)
+export function numberToWords(num: bigint): string {
+  if (num < 20n) {
+    return unitsAndTeens[Number(num)]
+  } else if (num < 100n) {
+    const tensWord = tens[Math.floor(Number(num / 10n))]
+    return isExactMultiple(num, 10n)
       ? tensWord
-      : `${tensWord}-${unitsAndTeens[num % 10]}`
-  } else if (num < 1000) {
-    const hundreds = unitsAndTeens[Math.floor(num / 100)]
-    return isExactMultiple(num, 100)
+      : `${tensWord}-${unitsAndTeens[Number(num % 10n)]}`
+  } else if (num < 1000n) {
+    const hundreds = unitsAndTeens[Math.floor(Number(num / 100n))]
+    return isExactMultiple(num, 100n)
       ? `${hundreds} hundred`
-      : `${hundreds} hundred and ${numberToWords(num % 100)}`
+      : `${hundreds} hundred and ${numberToWords(num % 100n)}`
   } else {
     let scaleIndex = 0
-    let scaleValue = 1000
+    let scaleValue = 1000n
     while (scaleValue <= num) {
       scaleIndex++
-      scaleValue *= 1000
+      scaleValue *= 1000n
     }
+    scaleValue /= 1000n // Reset to previous scale value
     const scaleWord = scales[scaleIndex]
-    const scaleMultiplier = Math.pow(1000, scaleIndex)
-    const scaleNumber = Math.floor(num / scaleMultiplier)
-    return isExactMultiple(num, scaleMultiplier)
+    const scaleNumber = num / scaleValue
+    const remainder = num % scaleValue
+    return isExactMultiple(num, scaleValue)
       ? `${numberToWords(scaleNumber)} ${scaleWord}`
       : `${numberToWords(scaleNumber)} ${scaleWord}, ${numberToWords(
-          num % scaleMultiplier
+          remainder
         )}`
   }
 }
