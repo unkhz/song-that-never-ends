@@ -19,6 +19,9 @@ while (!ended) {
     }
   } else {
     // After decillion iterations, start over again. What else can you do?
+    // According to Wikipedia (https://en.wikipedia.org/wiki/Names_of_large_numbers),
+    // numbers after decillion are not widely standardized, so it's perhaps the
+    // best time to start over.
     currentIteration = 0
   }
   iteration++

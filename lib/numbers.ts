@@ -12,9 +12,11 @@ const scales: string[] = [
   'octillion',
   'nonillion',
   // Feel free add more scales, if you're still running the program. The
-  // estimated time for "nonillion" iterations of the song would be many orders
+  // estimated time for centillion iterations of the song would be many orders
   // of magnitude longer than the current estimated age of the universe, which
-  // is about 13.8 billion years.
+  // is about 13.8 billion years. However, as a rough estimate for the lifetime
+  // of the universe, past and future, a googol (1^100) is sometimes used, so
+  // you could definitely still get a few more scales in there.
 ]
 
 // Words for numbers from zero to nineteen
