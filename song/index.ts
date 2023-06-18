@@ -8,39 +8,28 @@ function pickVariation(variations: string[], idx: number) {
 }
 
 function pickChorus(iteration) {
-  // First chorus is iteration one
   const chorusIdx = iteration + 1
 
   const numberAsWords = numberToWords(chorusIdx)
   const iterationWords =
-  chorusIdx <= 100 ? `iteration ${numberAsWords}` : numberAsWords
-  return choruses[chorusIdx % 100].replace(
-    /iteration[^,]+/g,
-    iterationWords
-  )
+    chorusIdx <= 100 ? `iteration ${numberAsWords}` : numberAsWords
+  return choruses[iteration % 100].replace(/iteration[^,]+/g, iterationWords)
 }
 
-function* songParts() {
-  let iteration = 0
-  while (numberToWords(iteration)) {
-    const chorus = pickChorus(iteration)
-
-    yield pickVariation(firstVerse, iteration)
-    yield chorus
-    yield pickVariation(secondVerse, iteration)
-    yield chorus
-    yield pickVariation(thirdVerse, iteration)
-    yield pickVariation(finalChoruses, iteration)
-    
-    iteration++
-  }
+function deIndent(part: string) {
+  const lines = part.split('\n')
+  return lines.map((line) => line.replace(/^\s+/, '')).join('\n')
 }
 
-export default function* song() {
-  for (const part of songParts()) {
-    yield part
-      .split('\n')
-      .map((line) => line.trim())
-      .join('\n')
-  }
+export default function song(iteration) {
+  const chorus = pickChorus(iteration)
+
+  return [
+    pickVariation(firstVerse, iteration),
+    chorus,
+    pickVariation(secondVerse, iteration),
+    chorus,
+    pickVariation(thirdVerse, iteration),
+    pickVariation(finalChoruses, iteration),
+  ].map(deIndent)
 }

@@ -2,13 +2,13 @@ import { describe, expect, it } from 'bun:test'
 import song from '.'
 
 describe('song', () => {
-  it('should generate 11 variations of the song', () => {
-    let songParts = []
-    const iterator = song()
-    for (let i = 0; i < 66; i++) {
-      songParts.push(iterator.next().value)
-    }
-    expect(songParts.length).toBe(66)
-    expect(songParts).toMatchSnapshot()
-  })
+  const iterations = [
+    0, 99, 100, 999, 1000, 999_998, 1_000_000, 1_000_101, 1_111_111_111_111,
+  ]
+  for (const iteration of iterations) {
+    it(`should generate iteration ${iteration} of the song`, () => {
+      const songParts = song(iteration)
+      expect(songParts).toMatchSnapshot()
+    })
+  }
 })

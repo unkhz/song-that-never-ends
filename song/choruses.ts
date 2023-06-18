@@ -1,8 +1,8 @@
 export const choruses = [
-  `This is the song, iteration zero,
-  It's got a beat, but it's not a hero,
-  To feel the rhythm, my dear friend,
-  You need to hear the song that never ends...`,
+  //`This is the song, iteration zero,
+  //It's got a beat, but it's not a hero,
+  //To feel the rhythm, my dear friend,
+  //You need to hear the song that never ends...`,
 
   `This is the song, iteration one,
   Yes, it goes on and on, it's just begun,

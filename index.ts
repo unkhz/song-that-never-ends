@@ -4,6 +4,22 @@ import { argv } from 'process'
 
 const [_, __, voice = 'Daniel'] = argv
 
-for (const part of song()) {
-  await sing(voice, part)
+// TODO, persist
+let currentIteration = 0
+
+let iteration = 0
+let ended = false
+while (!ended) {
+  const parts = song(iteration)
+  if (parts.length) {
+    if (iteration >= currentIteration) {
+      for (const part of parts) {
+        await sing(voice, part)
+      }
+    }
+  } else {
+    // After decillion iterations, start over again. What else can you do?
+    currentIteration = 0
+  }
+  iteration++
 }
