@@ -7,23 +7,32 @@ function pickVariation(variations: string[], idx: number) {
   return variations[idx % variations.length]
 }
 
+function pickChorus(iteration) {
+  // First chorus is iteration one
+  const chorusIdx = iteration + 1
+
+  const numberAsWords = numberToWords(chorusIdx)
+  const iterationWords =
+  chorusIdx <= 100 ? `iteration ${numberAsWords}` : numberAsWords
+  return choruses[chorusIdx % 100].replace(
+    /iteration[^,]+/g,
+    iterationWords
+  )
+}
+
 function* songParts() {
-  let num = 1
-  while (numberToWords(num)) {
-    const numberAsWords = numberToWords(num)
-    const iterationWords =
-      num <= 100 ? `iteration ${numberAsWords}` : numberAsWords
-    const chorus = choruses[num % 100].replace(
-      /iteration[^,]+/g,
-      iterationWords
-    )
-    yield pickVariation(firstVerse, num)
+  let iteration = 0
+  while (numberToWords(iteration)) {
+    const chorus = pickChorus(iteration)
+
+    yield pickVariation(firstVerse, iteration)
     yield chorus
-    yield pickVariation(secondVerse, num)
+    yield pickVariation(secondVerse, iteration)
     yield chorus
-    yield pickVariation(thirdVerse, num)
-    yield pickVariation(finalChoruses, num)
-    num++
+    yield pickVariation(thirdVerse, iteration)
+    yield pickVariation(finalChoruses, iteration)
+    
+    iteration++
   }
 }
 
