@@ -7,7 +7,11 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
-async function editVerse(input: string, instruction: string) {
+async function editVerse(
+  input: string,
+  instruction: string,
+  temperature: number
+) {
   const response = await openai.createEdit({
     model: 'text-davinci-edit-001',
     input,
@@ -21,7 +25,8 @@ async function editVerse(input: string, instruction: string) {
 function pickVariation(input: string, iteration: bigint) {
   return editVerse(
     input,
-    'Change each line to a different variation. Keep rhyming lines two and four.'
+    'Change each line to a different variation. Avoid adding lines. Keep rhyming lines two and four.',
+    1.2
   )
 }
 
@@ -32,7 +37,8 @@ async function pickChorus(chorus: string, iteration: bigint) {
     chorusIdx <= 100 ? '' : ' Remove the word "iteration".'
   return editVerse(
     chorus,
-    `Change the number on first line to "${numberAsWords}".${iterationInstruction} Vary second line so that it rhymes with the first line. Change words of third line, but keep the tone. Vary fourth line, so that it rhymes with the third line.`
+    `Change the number on first line to "${numberAsWords}".${iterationInstruction} Vary second line so that it rhymes with the first line. Change words of third line, but keep the tone. Vary fourth line, so that it rhymes with the third line.`,
+    0.4
   )
 }
 
