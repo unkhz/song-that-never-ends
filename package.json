@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "bun-types": "^0.6.9"
+  },
+  "dependencies": {
+    "openai": "^3.3.0"
   }
 }
