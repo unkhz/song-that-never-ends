@@ -12,20 +12,41 @@ async function editVerse(
   instruction: string,
   temperature: number
 ) {
-  const response = await openai.createEdit({
-    model: 'text-davinci-edit-001',
-    input,
-    instruction,
-    temperature: 1,
-    top_p: 1,
-  })
-  return response.data.choices[0].text
+  let i = 0
+  while (i < 20) {
+    try {
+      const response = await openai.createEdit({
+        model: 'text-davinci-edit-001',
+        input,
+        instruction,
+        temperature,
+        top_p: 1,
+      })
+      if (response.status === 200 && response.data.choices.length > 0) {
+        const verse = response.data.choices[0].text.split('\n').slice(0, 4)
+
+        // reject verses that are changing the song too much
+        if (verse.length === 4 && verse.every((line) => line.length > 15)) {
+          return verse.join('\n')
+        }
+      }
+    } catch (err) {
+      // console.error(err)
+    }
+
+    // try again in a bit
+    await new Promise((resolve) =>
+      setTimeout(resolve, Math.min(10000, 100 + Math.pow(2, i)))
+    )
+  }
+
+  throw new Error('Failed to generate verse')
 }
 
 function pickVariation(input: string, iteration: bigint) {
   return editVerse(
     input,
-    'Change each line to a different variation. Avoid adding lines. Keep rhyming lines two and four.',
+    'Input is a verse in a never ending song. Write the next verse for the song and make it rhyme.',
     1.2
   )
 }
@@ -38,7 +59,7 @@ async function pickChorus(chorus: string, iteration: bigint) {
   return editVerse(
     chorus,
     `Change the number on first line to "${numberAsWords}".${iterationInstruction} Vary second line so that it rhymes with the first line. Change words of third line, but keep the tone. Vary fourth line, so that it rhymes with the third line.`,
-    0.4
+    1
   )
 }
 
