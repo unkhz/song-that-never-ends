@@ -21,12 +21,16 @@ export async function editVerse(
         top_p: 1,
       })
       if (response.status === 200 && response.data.choices.length > 0) {
-        const verse = response.data.choices[0].text.split('\n').slice(0, 4)
+        const verse = response.data.choices[0].text
+          .split('\n')
+          .slice(0, 4)
+          .map((line) => line.trim())
 
         // reject verses that are changing the song too much
         if (
           verse.length === 4 &&
           verse.every((line) => line.length > 15) &&
+          verse.every((line) => line.length < 81) &&
           verse.every(
             (line) => !line.toLowerCase().includes(instruction.toLowerCase())
           )
