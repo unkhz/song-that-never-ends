@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai'
+import { typeLine } from '../lib/tools'
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,15 +14,18 @@ export async function editVerse(
   let i = 0
   while (i < 20) {
     try {
-      const response = await openai.createEdit({
-        model: 'text-davinci-edit-001',
-        input,
-        instruction,
+      const response = await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: instruction },
+          { role: 'user', content: input },
+        ],
+        max_tokens: 64,
         temperature,
         top_p: 1,
       })
       if (response.status === 200 && response.data.choices.length > 0) {
-        const verse = response.data.choices[0].text
+        const verse = response.data.choices[0].message.content
           .split('\n')
           .slice(0, 4)
           .map((line) => line.trim())
@@ -43,7 +47,7 @@ export async function editVerse(
         }
       }
     } catch (err) {
-      // console.error(err)
+      //console.error(err)
     }
 
     // try again in a bit

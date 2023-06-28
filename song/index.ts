@@ -2,10 +2,31 @@ import * as original from './verses'
 import { numberToWords } from '../lib/numbers'
 import { editVerse } from './edit'
 
-async function pickVariation(input: string, iteration: bigint) {
+const moods = [
+  'eternity',
+  'death',
+  'spring',
+  'light',
+  'spirit',
+  'human evolution',
+  'transcendence',
+]
+function pickNewMood(): string | undefined {
+  if (Math.random() > 0.67) {
+    return moods[Math.floor(Math.random() * moods.length)]
+  }
+}
+
+function changeMood(instruction, mood) {
+  return `${instruction} Talk intensely about ${mood}.`
+}
+
+async function pickVariation(input: string, mood?: string) {
+  const instruction =
+    'Input is a verse in a never ending song. Write the next verse for the song and make it rhyme.'
   return editVerse(
     input,
-    'Input is a verse in a never ending song. Write the next verse for the song and make it rhyme.',
+    mood ? changeMood(instruction, mood) : instruction,
     1.2
   )
 }
@@ -45,12 +66,13 @@ async function generateIteration(iteration: bigint) {
       deIndent(original.finalChorus),
     ]
   }
+  const mood = pickNewMood()
   return Promise.all([
     pickChorus(previous.chorus, iteration),
-    pickVariation(previous.firstVerse, iteration),
-    pickVariation(previous.secondVerse, iteration),
-    pickVariation(previous.thirdVerse, iteration),
-    pickVariation(previous.finalChorus, iteration),
+    pickVariation(previous.firstVerse, mood),
+    pickVariation(previous.secondVerse, mood),
+    pickVariation(previous.thirdVerse, mood),
+    pickVariation(previous.finalChorus, mood),
   ])
 }
 
