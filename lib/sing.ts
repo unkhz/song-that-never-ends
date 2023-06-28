@@ -5,7 +5,9 @@ async function sayAndType(line: string, voice: string) {
   const speechRate = 80
   const typingDelay = voice.toLowerCase() === 'good news' ? 160 : 80
 
-  await Promise.all([typeLine(line, typingDelay), say(line, speechRate, voice)])
+  const procPromise = say(line, speechRate, voice)
+  await typeLine(line, typingDelay)
+  procPromise.then((proc) => setTimeout(() => proc.kill(), 1000))
 }
 
 export async function sing(voice: string, part: string) {
