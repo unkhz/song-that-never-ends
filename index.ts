@@ -1,35 +1,22 @@
 import song from './song'
 import { sing } from './lib/sing'
 import { argv } from 'process'
+import { wait } from './lib/tools'
 
 const [_, __, voice = 'Daniel'] = argv
 
-// After decillion iterations, start over again. What else can you do?
-// According to Wikipedia (https://en.wikipedia.org/wiki/Names_of_large_numbers),
-// numbers after decillion are not widely standardized, so it's perhaps the
-// best time to start over.
-const loopLength = 1_000_000_000_000_000_000_000_000_000_000_000_000_000_000n
+const speechRate = 80
+const typingDelay = voice.toLowerCase() === 'good news' ? 160 : 80
 
-// TODO, persist
-let currentIteration = 0n
-
-async function singParts(parts: string[], iteration: bigint) {
-  if (iteration < loopLength) {
-    for (const part of parts) {
-      await sing(voice, part)
-    }
-  } else {
-    currentIteration = 0n
-  }
+async function play(filename: string) {
+  await wait(10)
+  await Bun.spawn(['afplay', filename]).exited
 }
 
-let iteration = 0n
-let ended = false
-let nextParts: string[]
-while (!ended) {
-  const parts = nextParts ?? (await song(iteration))
-  const singingPromise = singParts(parts, iteration)
-  iteration++
-  nextParts = await song(iteration)
-  await singingPromise
+for await (const char of sing(song, voice, speechRate, typingDelay)) {
+  if (char.endsWith('.aiff')) {
+    play(char)
+  } else {
+    process.stdout.write(char)
+  }
 }

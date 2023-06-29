@@ -5,10 +5,10 @@ export async function wait(delay: number) {
   await new Promise((resolve) => setTimeout(resolve, naturalDelay))
 }
 
-export async function type(line: string, delay: number) {
+export async function* type(line: string, delay: number) {
   for (const char of line) {
     await wait(delay)
-    process.stdout.write(char)
+    yield char
     if (char === ',') {
       await wait(delay * 9)
     }
@@ -16,6 +16,9 @@ export async function type(line: string, delay: number) {
   await wait(delay * 10)
 }
 
-export async function typeLine(line: string, delay: number) {
-  return type(`${line}\n`, delay)
+export async function* typeLine(line: string, delay: number) {
+  for await (const char of type(line, delay)) {
+    yield char
+  }
+  yield '\n'
 }

@@ -1,21 +1,61 @@
 import { say } from './apple'
-import { typeLine } from './tools'
+import { typeLine, wait } from './tools'
 
-async function sayAndType(line: string, voice: string) {
-  const speechRate = 80
-  const typingDelay = voice.toLowerCase() === 'good news' ? 160 : 80
-
-  const procPromise = say(line, speechRate, voice)
-  await typeLine(line, typingDelay)
-  procPromise.then((proc) => setTimeout(() => proc.kill(), 1000))
+async function drain(it: AsyncIterableIterator<unknown>) {
+  for await (const _ of it) {
+    // just drain it, we don't care about the values
+  }
 }
 
-export async function sing(voice: string, part: string) {
+async function* singPart(
+  voice: string,
+  part: string,
+  speechRate: number,
+  typingDelay: number
+) {
   for (const line of part.split('\n')) {
+    yield await say(line, speechRate, voice)
     const trimmedLine = line.trim()
     if (trimmedLine) {
-      await sayAndType(line, voice)
+      for await (const char of typeLine(line, typingDelay)) {
+        yield char
+      }
     }
   }
-  await typeLine('', 80)
+  await drain(typeLine('', 80))
+}
+
+// After decillion iterations, start over again. What else can you do?
+// According to Wikipedia (https://en.wikipedia.org/wiki/Names_of_large_numbers),
+// numbers after decillion are not widely standardized, so it's perhaps the
+// best time to start over.
+const loopLength = 1_000_000_000_000_000_000_000_000_000_000_000_000_000_000n
+
+let iteration = 0n
+let ended = false
+let nextParts: string[]
+
+export async function* sing(
+  song: (iteration: bigint) => Promise<string[]>,
+  voice: string,
+  speechRate: number,
+  typingDelay: number
+) {
+  while (!ended) {
+    const parts = nextParts ?? (await song(iteration))
+
+    for (const part of parts) {
+      for await (const char of singPart(voice, part, speechRate, typingDelay)) {
+        yield char
+      }
+    }
+
+    if (iteration < loopLength) {
+      iteration++
+    } else {
+      iteration = 0n
+    }
+
+    nextParts = await song(iteration)
+  }
 }
