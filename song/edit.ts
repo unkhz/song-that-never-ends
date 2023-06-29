@@ -1,4 +1,5 @@
 import { openai } from '../lib/openai'
+import { wait } from '../lib/tools'
 
 export async function editVerse(
   input: string,
@@ -45,9 +46,7 @@ export async function editVerse(
     }
 
     // try again in a bit
-    await new Promise((resolve) =>
-      setTimeout(resolve, Math.min(10000, 100 + Math.pow(2, i)))
-    )
+    await wait(Math.min(10000, 100 + Math.pow(2, i)))
   }
 
   throw new Error('Failed to generate verse')

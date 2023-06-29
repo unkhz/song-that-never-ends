@@ -7,14 +7,9 @@ async function drain(it: AsyncIterableIterator<unknown>) {
   }
 }
 
-async function* singPart(
-  voice: string,
-  part: string,
-  speechRate: number,
-  typingDelay: number
-) {
+async function* singPart(part: string, typingDelay: number) {
   for (const line of part.split('\n')) {
-    yield await say(line, speechRate, voice)
+    yield `say:${line}`
     const trimmedLine = line.trim()
     if (trimmedLine) {
       for await (const char of typeLine(line, typingDelay)) {
@@ -22,7 +17,7 @@ async function* singPart(
       }
     }
   }
-  await drain(typeLine('', 80))
+  await drain(typeLine('', typingDelay))
 }
 
 // After decillion iterations, start over again. What else can you do?
@@ -37,15 +32,13 @@ let nextParts: string[]
 
 export async function* sing(
   song: (iteration: bigint) => Promise<string[]>,
-  voice: string,
-  speechRate: number,
   typingDelay: number
 ) {
   while (!ended) {
     const parts = nextParts ?? (await song(iteration))
 
     for (const part of parts) {
-      for await (const char of singPart(voice, part, speechRate, typingDelay)) {
+      for await (const char of singPart(part, typingDelay)) {
         yield char
       }
     }

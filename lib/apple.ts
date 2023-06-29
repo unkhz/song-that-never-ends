@@ -1,4 +1,5 @@
 import { createHash } from 'crypto'
+import { wait } from './tools'
 
 function getHash(string: string) {
   return createHash('sha256').update(string).digest('hex')
@@ -19,4 +20,9 @@ export async function say(line: string, rate: number, voice: string) {
   await run(['say', `-v${voice}`, `-r${rate}`, `"\n${line}"`, `-o${filename}`])
 
   return filename
+}
+
+export async function play(filename: string) {
+  await wait(10)
+  await Bun.spawn(['afplay', filename]).exited
 }
