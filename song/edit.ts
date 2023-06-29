@@ -1,10 +1,4 @@
-import { Configuration, OpenAIApi } from 'openai'
-import { typeLine } from '../lib/tools'
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-})
-const openai = new OpenAIApi(configuration)
+import { openai } from '../lib/openai'
 
 export async function editVerse(
   input: string,
