@@ -17,7 +17,9 @@ async function* singPart(part: string, typingDelay: number) {
       }
     }
   }
-  await drain(typeLine('', typingDelay))
+  await wait(typingDelay * 10)
+  yield '\n'
+  await wait(typingDelay * 10)
 }
 
 // After decillion iterations, start over again. What else can you do?
