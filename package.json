@@ -2,7 +2,11 @@
   "name": "@song/song-that-never-ends",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "nx": {},
+  "scripts": {
+    "dev-all": "nx run-many --target=dev --all",
+    "check-all": "nx run-many --target=lint,test --all"
+  },
   "private": true,
   "dependencies": {},
   "devDependencies": {
