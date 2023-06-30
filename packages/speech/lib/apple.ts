@@ -12,14 +12,26 @@ async function run(opts: string[]) {
 await run(['mkdir', '-p', 'audio'])
 
 export async function say(line: string, rate: number, voice: string) {
-  const filename = `audio/${getHash(line)}.aiff`
-  if (Bun.file(filename).size) {
-    return filename
+  const aiffFile = `audio/${getHash(line)}.aiff`
+  const mp3File = aiffFile.replace('.aiff', '.mp3')
+
+  if (!Bun.file(aiffFile).size) {
+    console.log('Generate', aiffFile)
+    await run([
+      'say',
+      `-v${voice}`,
+      `-r${rate}`,
+      `"\n${line}"`,
+      `-o${aiffFile}`,
+    ])
   }
 
-  await run(['say', `-v${voice}`, `-r${rate}`, `"\n${line}"`, `-o${filename}`])
+  if (!Bun.file(mp3File).size) {
+    console.log('Generate', mp3File)
+    await run(['ffmpeg', '-i', aiffFile, mp3File])
+  }
 
-  return filename
+  return mp3File
 }
 
 export async function play(filename: string) {

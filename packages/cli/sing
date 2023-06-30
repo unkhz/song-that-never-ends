@@ -2,9 +2,7 @@
 
 clear
 
-voice=${1:-"Daniel"}
-
 # Set terminal title
 echo -en "\033]0;Song that never ends\007"
 
-bun index.ts "$voice"
+bun index.ts

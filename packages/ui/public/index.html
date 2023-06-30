@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <style>
+      body {
+        background: #000;
+        color: #fff;
+        font-family: monospace;
+        font-size: 2em;
+        line-height: 1.5;
+      }
+      pre {
+        margin: 0;
+        padding: 0;
+      }
+      #audio {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      #controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      #play {
+        margin: auto;
+        padding: 1em 2em;
+        font-size: 2em;
+        background: #adf;
+        border: 0 none;
+        border-radius: 0.5em;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <pre id="output"></pre>
+    <div id="audio"></div>
+    <div id="controls">
+      <button id="play">Play</button>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>

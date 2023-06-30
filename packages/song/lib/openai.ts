@@ -1,12 +1,7 @@
 import { Configuration, CreateChatCompletionRequest, OpenAIApi } from 'openai'
-import { getEnv } from './env'
-import z from 'zod'
+import { getEnv } from 'tools'
 
-const openAiEnvSchema = z.object({
-  OPENAI_API_KEY: z.string().min(32),
-})
-
-const { OPENAI_API_KEY } = await getEnv(openAiEnvSchema)
+const { OPENAI_API_KEY } = getEnv()
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
 })

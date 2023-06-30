@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "esnext",
+    "moduleResolution": "nodenext",
+    "target": "esnext",
+    "types": ["bun-types"] // this is necessary
+  }
+}
