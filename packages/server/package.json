@@ -1,5 +1,5 @@
 {
-  "name": "@song/server",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,8 +15,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@song/song": "*",
-    "@song/tools": "*",
+    "song": "*",
+    "tools": "*",
     "zod": "^3.21.4"
   }
 }

@@ -1,4 +1,4 @@
-import { typeLine, wait } from '@song/tools'
+import { typeLine, wait } from 'tools'
 
 async function drain(it: AsyncIterableIterator<unknown>) {
   for await (const _ of it) {

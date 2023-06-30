@@ -1,5 +1,5 @@
 import { argv } from 'process'
-import song from '@song/song'
+import song from 'song'
 import { sing } from './lib/sing'
 import { play, say } from './lib/apple'
 

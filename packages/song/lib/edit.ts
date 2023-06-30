@@ -1,5 +1,5 @@
 import { getChatCompletion } from './openai'
-import { wait } from '@song/tools'
+import { wait } from 'tools'
 
 export async function editVerse(
   input: string,

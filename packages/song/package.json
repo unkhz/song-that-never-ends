@@ -1,5 +1,5 @@
 {
-  "name": "@song/song",
+  "name": "song",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@song/tools": "workspace:*",
+    "tools": "workspace:*",
     "openai": "^3.3.0",
     "zod": "^3.21.4"
   }
