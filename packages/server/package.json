@@ -1,0 +1,20 @@
+{
+  "name": "@song/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "bun index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bun-types": "^0.6.9"
+  },
+  "dependencies": {
+    "@song/song": "*",
+    "@song/tools": "*",
+    "zod": "^3.21.4"
+  }
+}

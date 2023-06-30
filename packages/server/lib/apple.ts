@@ -1,5 +1,5 @@
 import { createHash } from 'crypto'
-import { wait } from './tools'
+import { wait } from '@song/tools'
 
 function getHash(string: string) {
   return createHash('sha256').update(string).digest('hex')

@@ -1,6 +1,6 @@
 import * as original from './verses'
-import { numberToWords } from '../lib/numbers'
-import { editVerse } from './edit'
+import { numberToWords } from './lib/numbers'
+import { editVerse } from './lib/edit'
 
 const moods = [
   'eternity',
@@ -17,7 +17,7 @@ function pickNewMood(): string | undefined {
   }
 }
 
-function changeMood(instruction, mood) {
+function changeMood(instruction: string, mood: string) {
   return `${instruction} Talk intensely about ${mood}.`
 }
 

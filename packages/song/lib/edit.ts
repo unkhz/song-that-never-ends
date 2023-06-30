@@ -1,5 +1,5 @@
-import { openai } from '../lib/openai'
-import { wait } from '../lib/tools'
+import { openai } from './openai'
+import { wait } from '@song/tools'
 
 export async function editVerse(
   input: string,
