@@ -21,11 +21,17 @@ jobs:
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'pnpm'
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Run pnpm check-all
         run: pnpm check-all
