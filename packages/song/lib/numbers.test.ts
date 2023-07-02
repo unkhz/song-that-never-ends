@@ -1,5 +1,4 @@
-import { describe, expect, it } from 'bun:test'
-import { numberToWords } from './numbers'
+import { numberToWords } from './numbers.js'
 
 describe('song', () => {
   const cases = [

@@ -13,15 +13,23 @@ async function read() {
   if (response.body) {
     const reader = response.body.getReader()
     const audios = []
+    let isSnapshot = true
     while (true) {
       const { done, value: chunk } = await reader.read()
-      const char = new TextDecoder().decode(chunk).slice(0, -1)
-      if (char.startsWith('play:')) {
-        audio.appendChild(createAudioElement(char.slice(5)))
-      } else {
-        output.innerHTML += char
+      const chars = new TextDecoder().decode(chunk).slice(0, -1)
+      for (const char of chars.split('\n')) {
+        if (char === '') {
+          output.innerHTML += '\n'
+        } else if (char.startsWith('play:')) {
+          if (!isSnapshot) {
+            audio.appendChild(createAudioElement(char.slice(5)))
+          }
+        } else {
+          output.innerHTML += char
+        }
       }
       if (done) break
+      isSnapshot = false
     }
   }
 }

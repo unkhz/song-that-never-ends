@@ -1,46 +1,49 @@
-import { serve } from 'bun'
 import { getEnv } from 'tools'
 import song from 'song'
 import { say } from 'speech'
-import { sing } from './lib/sing'
+import { sing } from './lib/sing.js'
+import { createServer } from './lib/server.js'
+import { createReadStream } from 'node:fs'
+import { TextEncoderStream } from 'node:stream/web'
 
 const { SERVER_PORT, SPEECH_VOICE, SPEECH_RATE } = getEnv()
 
 const typingDelay =
   SPEECH_VOICE.toLowerCase() === 'good news' ? SPEECH_RATE * 2 : SPEECH_RATE
 
-const stream = () =>
-  new ReadableStream({
-    type: 'direct',
-    async pull(controller) {
-      for await (const char of sing(song, typingDelay)) {
-        if (char.startsWith('say:')) {
-          say(char.slice(4), SPEECH_RATE, SPEECH_VOICE).then((filename) => {
-            controller.write(`play:${filename}` + '\n')
-            controller.flush()
-          })
-        } else {
-          controller.write(char + '\n')
-          controller.flush()
-        }
-      }
-      controller.close()
-    },
-  })
+const stream = new TextEncoderStream()
 
-serve({
-  port: SERVER_PORT,
-  fetch(req) {
-    if (req.url.includes('audio')) {
-      const filename = req.url.split('/').pop()
-      return new Response(Bun.file(`audio/${filename}`).stream())
+async function run() {
+  const writer = stream.writable.getWriter()
+  for await (const char of sing(song, typingDelay)) {
+    await writer.ready
+    if (char.startsWith('say:')) {
+      say(char.slice(4), SPEECH_RATE, SPEECH_VOICE).then((filename) => {
+        writer.write(`play:${filename}` + '\n')
+      })
+    } else {
+      writer.write(char + '\n')
     }
-    return new Response(stream(), {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Private-Network': 'true',
-      },
-    })
-  },
+  }
+  await writer.ready
+  writer.close()
+}
+
+let keeper = stream.readable
+function forkStream() {
+  const teed = keeper.tee()
+  keeper = teed[0]
+  return teed[1]
+}
+
+createServer((req) => {
+  if (req.url?.includes('/audio/')) {
+    const filename = req.url?.split('/').pop()
+    return createReadStream(`audio/${filename}`)
+  }
+  return forkStream()
+}).listen(SERVER_PORT, () => {
+  console.log(`Server running at http://127.0.0.1:${SERVER_PORT}/`)
 })
+
+run()

@@ -1,6 +1,6 @@
-import * as original from './verses'
-import { numberToWords } from './lib/numbers'
-import { editVerse } from './lib/edit'
+import * as original from './verses.js'
+import { numberToWords } from './lib/numbers.js'
+import { editVerse } from './lib/edit.js'
 
 const moods = [
   'eternity',

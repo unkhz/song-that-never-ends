@@ -1,4 +1,4 @@
-import { getChatCompletion } from './openai'
+import { getChatCompletion } from './openai.js'
 import { wait } from 'tools'
 
 export async function editVerse(

@@ -1,5 +1,4 @@
-import { describe, expect, it, spyOn } from 'bun:test'
-import { sing } from './sing'
+import { sing } from './sing.js'
 
 describe('sing', () => {
   it('should sing', async () => {

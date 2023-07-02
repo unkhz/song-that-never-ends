@@ -1,1 +1,1 @@
-export * from './lib/apple'
+export * from './lib/apple.js'

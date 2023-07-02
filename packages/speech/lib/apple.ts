@@ -1,21 +1,26 @@
 import { createHash } from 'crypto'
+import { stat } from 'node:fs/promises'
 import { wait } from 'tools'
+import { execChildProcess } from './exec.js'
 
 function getHash(string: string) {
   return createHash('sha256').update(string).digest('hex')
 }
 
 async function run(opts: string[]) {
-  return Bun.spawn(opts).exited
+  return execChildProcess(opts.join(' '))
 }
 
-await run(['mkdir', '-p', 'audio'])
+async function ensureOutputFolder() {
+  await run(['mkdir', '-p', 'audio'])
+}
 
 export async function say(line: string, rate: number, voice: string) {
+  await ensureOutputFolder()
   const aiffFile = `audio/${getHash(line)}.aiff`
   const mp3File = aiffFile.replace('.aiff', '.mp3')
 
-  if (!Bun.file(aiffFile).size) {
+  if (!(await stat(aiffFile)).isFile()) {
     console.log('Generate', aiffFile)
     await run([
       'say',
@@ -26,7 +31,7 @@ export async function say(line: string, rate: number, voice: string) {
     ])
   }
 
-  if (!Bun.file(mp3File).size) {
+  if (!(await stat(mp3File)).isFile()) {
     console.log('Generate', mp3File)
     await run(['ffmpeg', '-i', aiffFile, mp3File])
   }
@@ -36,5 +41,5 @@ export async function say(line: string, rate: number, voice: string) {
 
 export async function play(filename: string) {
   await wait(10)
-  await Bun.spawn(['afplay', filename]).exited
+  await run(['afplay', filename])
 }
