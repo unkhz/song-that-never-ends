@@ -7,12 +7,16 @@ function getHash(string: string) {
   return createHash('sha256').update(string).digest('hex')
 }
 
-async function run(opts: string[]) {
-  return execChildProcess(opts.join(' '))
+async function ensureOutputFolder() {
+  await execChildProcess('mkdir', ['-p', 'audio'])
 }
 
-async function ensureOutputFolder() {
-  await run(['mkdir', '-p', 'audio'])
+async function fileExists(file: string) {
+  try {
+    return (await stat(file)).isFile()
+  } catch (error) {
+    return false
+  }
 }
 
 export async function say(line: string, rate: number, voice: string) {
@@ -20,20 +24,24 @@ export async function say(line: string, rate: number, voice: string) {
   const aiffFile = `audio/${getHash(line)}.aiff`
   const mp3File = aiffFile.replace('.aiff', '.mp3')
 
-  if (!(await stat(aiffFile)).isFile()) {
-    console.log('Generate', aiffFile)
-    await run([
-      'say',
-      `-v${voice}`,
-      `-r${rate}`,
-      `"\n${line}"`,
-      `-o${aiffFile}`,
-    ])
-  }
+  if (!(await fileExists(mp3File))) {
+    if (!(await fileExists(aiffFile))) {
+      await execChildProcess('say', [
+        '-v',
+        voice,
+        '-r',
+        `${rate}`,
+        '-o',
+        aiffFile,
+        `"${line}"`,
+      ])
+    }
 
-  if (!(await stat(mp3File)).isFile()) {
-    console.log('Generate', mp3File)
-    await run(['ffmpeg', '-i', aiffFile, mp3File])
+    await execChildProcess('ffmpeg', ['-i', aiffFile, mp3File])
+
+    await execChildProcess('rm', [aiffFile]).catch(() => {
+      // it's ok
+    })
   }
 
   return mp3File
@@ -41,5 +49,5 @@ export async function say(line: string, rate: number, voice: string) {
 
 export async function play(filename: string) {
   await wait(10)
-  await run(['afplay', filename])
+  await execChildProcess('afplay', [filename])
 }

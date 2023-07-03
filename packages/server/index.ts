@@ -13,12 +13,24 @@ const typingDelay =
 
 const stream = new TextEncoderStream()
 
+async function generateLineAudioData(line: string) {
+  return say(line, SPEECH_RATE, SPEECH_VOICE)
+}
+
+async function getCachedSong(iteration: bigint) {
+  const lines = await song(iteration)
+  for (const line of lines) {
+    await generateLineAudioData(line)
+  }
+  return lines
+}
+
 async function run() {
   const writer = stream.writable.getWriter()
-  for await (const char of sing(song, typingDelay)) {
+  for await (const char of sing(getCachedSong, typingDelay)) {
     await writer.ready
     if (char.startsWith('say:')) {
-      say(char.slice(4), SPEECH_RATE, SPEECH_VOICE).then((filename) => {
+      generateLineAudioData(char.slice(4)).then((filename) => {
         writer.write(`play:${filename}` + '\n')
       })
     } else {

@@ -1,8 +1,7 @@
 import { spawn } from 'child_process'
 
-function exec(cmd: string): Promise<string> {
+function exec(command: string, args: string[]): Promise<string> {
   return new Promise((resolve, reject) => {
-    const [command, ...args] = cmd.split(' ')
     const child = spawn(command, args)
     let output = ''
     let errorOutput = ''
@@ -29,9 +28,12 @@ function exec(cmd: string): Promise<string> {
   })
 }
 
-export async function execChildProcess(cmd: string): Promise<string> {
+export async function execChildProcess(
+  command: string,
+  args: string[]
+): Promise<string> {
   try {
-    const result = await exec(cmd)
+    const result = await exec(command, args)
     return result
   } catch (error) {
     console.error(`exec error: ${error}`)
