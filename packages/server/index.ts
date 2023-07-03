@@ -33,6 +33,8 @@ async function run() {
       generateLineAudioData(char.slice(4)).then((filename) => {
         writer.write(`play:${filename}` + '\n')
       })
+    } else if (char === '\n') {
+      writer.write('<br>' + '\n')
     } else {
       writer.write(char + '\n')
     }
