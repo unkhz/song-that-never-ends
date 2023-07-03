@@ -22,6 +22,13 @@ window.addEventListener('scroll', () => {
   }, 3000)
 })
 
+shouldFollowStory = (threshold = 100) => {
+  const el = document.scrollingElement
+  const scrollSize = Math.abs(el.scrollHeight - el.clientHeight - el.scrollTop)
+  const isAtBottom = scrollSize < threshold
+  return !isScrolling && isAtBottom
+}
+
 async function read() {
   document.getElementById('controls').style.display = 'none'
   const output = document.getElementById('output')
@@ -50,13 +57,18 @@ async function read() {
             appendStoryElement(char)
           }
         }
-        if (!isScrolling) {
-          window.scrollTo(0, document.body.scrollHeight)
+        if (shouldFollowStory()) {
+          document.getElementById('end').scrollIntoView()
         }
         i = (i + 1) % 1024
       }
       if (done) break
-      setTimeout(() => (isSnapshot = false), 500)
+      if (isSnapshot) {
+        setTimeout(() => {
+          isSnapshot = false
+          document.getElementById('end').scrollIntoView()
+        }, 100)
+      }
     }
   }
 }
