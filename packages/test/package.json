@@ -1,10 +1,9 @@
 {
-  "name": "ui",
+  "name": "test",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "scripts": {
-    "dev": "serve -l 4000 public",
     "test": "jest --passWithNoTests"
   },
   "keywords": [],
@@ -13,11 +12,9 @@
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.3",
+    "esbuild": "^0.18.11",
     "jest": "^29.5.0",
-    "test": "workspace:*",
+    "jest-ts-webcompat-resolver": "^1.0.0",
     "typescript": "^5.1.6"
-  },
-  "dependencies": {
-    "serve": "^14.2.0"
   }
 }

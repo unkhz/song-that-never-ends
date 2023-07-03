@@ -5,6 +5,6 @@
     "module": "esnext",
     "moduleResolution": "nodenext",
     "target": "esnext",
-    "types": ["node", "bun-types"]
+    "types": ["node", "jest"]
   }
 }
