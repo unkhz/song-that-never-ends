@@ -1,19 +1,30 @@
 import { ReadStream } from 'node:fs'
-import { IncomingMessage, createServer as createHttpServer } from 'node:http'
+import {
+  IncomingMessage,
+  ServerResponse,
+  createServer as createHttpServer,
+} from 'node:http'
 import { ReadableStream } from 'node:stream/web'
 
 export function createServer(
-  getStream: (req: IncomingMessage) => ReadStream | ReadableStream
+  getStream: (
+    req: IncomingMessage,
+    res: ServerResponse<IncomingMessage>
+  ) => Promise<ReadStream | ReadableStream>
 ) {
   const server = createHttpServer(async (req, res) => {
     if (!req.url) {
       res.writeHead(404)
-      res.end()
-      return
+      return res.end()
     }
 
     try {
-      const stream = getStream(req)
+      const stream = await getStream(req, res)
+
+      if (!stream) {
+        res.writeHead(404)
+        return res.end()
+      }
 
       res.writeHead(200, {
         'Content-Type': 'text/plain',

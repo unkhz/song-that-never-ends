@@ -5,8 +5,16 @@ import { sing } from './lib/sing.js'
 import { createServer } from './lib/server.js'
 import { createReadStream } from 'node:fs'
 import { TextEncoderStream } from 'node:stream/web'
+import { readdir, stat } from 'node:fs/promises'
 
 const { SERVER_PORT, SPEECH_VOICE, SPEECH_RATE } = getEnv()
+
+async function readRandomMusicFile(cat: string) {
+  const files = await readdir(`audio/${cat}`)
+  const musicFiles = files.filter((file) => file.startsWith('music'))
+  const picked = musicFiles[Math.floor(Math.random() * musicFiles.length)]
+  return `audio/${cat}/${picked}`
+}
 
 const typingDelay =
   SPEECH_VOICE.toLowerCase() === 'good news' ? SPEECH_RATE * 2 : SPEECH_RATE
@@ -25,18 +33,30 @@ async function getCachedSong(iteration: bigint) {
   return lines
 }
 
+let musicStep = 0
 async function run() {
   const writer = stream.writable.getWriter()
   for await (const char of sing(getCachedSong, typingDelay)) {
-    await writer.ready
     if (char.startsWith('say:')) {
-      generateLineAudioData(char.slice(4)).then((filename) => {
-        writer.write(`play:${filename}` + '\n')
+      generateLineAudioData(char.slice(4)).then(async (filename) => {
+        await writer.ready
+        await writer.write(`play:${filename}` + '\n')
       })
     } else if (char === '\n') {
-      writer.write('<br>' + '\n')
+      writer.ready.then(() => writer.write('<br>' + '\n'))
     } else {
-      writer.write(char + '\n')
+      writer.ready.then(() => writer.write(char + '\n'))
+    }
+
+    const now = Date.now()
+    if (now - musicStep > 2000) {
+      musicStep = now
+      readRandomMusicFile('ambience').then(async (filename) => {
+        if (filename) {
+          await writer.ready
+          await writer.write(`play:${filename}` + '\n')
+        }
+      })
     }
   }
   await writer.ready
@@ -50,10 +70,12 @@ function forkStream() {
   return teed[1]
 }
 
-createServer((req) => {
+createServer(async (req, res) => {
   if (req.url?.includes('/audio/')) {
-    const filename = req.url?.split('/').pop()
-    return createReadStream(`audio/${filename}`)
+    const filename = req.url?.split('/').slice(-2).join('/')
+    if ((await stat(`audio/${filename}`)).isFile()) {
+      return createReadStream(`audio/${filename}`)
+    }
   }
   return forkStream()
 }).listen(SERVER_PORT, () => {

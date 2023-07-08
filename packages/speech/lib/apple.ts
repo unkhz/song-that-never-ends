@@ -21,7 +21,7 @@ async function fileExists(file: string) {
 
 export async function say(line: string, rate: number, voice: string) {
   await ensureOutputFolder()
-  const aiffFile = `audio/${getHash(line)}.aiff`
+  const aiffFile = `audio/voice/${getHash(`${voice},${rate},${line}`)}.aiff`
   const mp3File = aiffFile.replace('.aiff', '.mp3')
 
   if (!(await fileExists(mp3File))) {

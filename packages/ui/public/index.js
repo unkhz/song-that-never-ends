@@ -1,7 +1,8 @@
-function createAudioElement(file) {
+function createAudioElement(file, volume) {
   const audio = document.createElement('audio')
   audio.src = `http://127.0.0.1:3000/${file}`
   audio.autoplay = true
+  audio.volume = volume
   return audio
 }
 
@@ -32,7 +33,6 @@ shouldFollowStory = (threshold = 100) => {
 async function read() {
   document.getElementById('controls').style.display = 'none'
   const output = document.getElementById('output')
-  const audio = document.getElementById('audio')
   const response = await fetch(`http://127.0.0.1:3000`)
   if (response.body) {
     const reader = response.body.getReader()
@@ -40,6 +40,7 @@ async function read() {
     let hist = []
     let isSnapshot = true
     switchStoryElement(output)
+    const audioContext = new AudioContext()
 
     while (true) {
       const { done, value: chunk } = await reader.read()
@@ -48,7 +49,11 @@ async function read() {
         hist = `${hist}${char}`.slice(-8)
         if (char.startsWith('play:')) {
           if (!isSnapshot) {
-            audio.appendChild(createAudioElement(char.slice(5)))
+            const audioSrc = char.slice(5)
+            createAudioElement(
+              audioSrc,
+              audioSrc.startsWith('audio/voice') ? 0.5 : 1
+            )
           }
         } else {
           if (hist.endsWith('<br><br>')) {

@@ -1,0 +1,12 @@
+{
+  "name": "music",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "dev": {
+      "command": "./dev.sh",
+      "options": {
+        "cwd": "packages/music"
+      }
+    }
+  }
+}
