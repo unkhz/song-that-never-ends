@@ -35,7 +35,7 @@ def main(args):
         descriptions,
         melody_wavs=melody[None].expand(1, -1, -1),
         melody_sample_rate=melody_sr,
-        progress=True,
+        progress=False,
     )
 
     write(
