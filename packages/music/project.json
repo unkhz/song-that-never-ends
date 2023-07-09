@@ -7,6 +7,12 @@
       "options": {
         "cwd": "packages/music"
       }
+    },
+    "install": {
+      "command": "conda create -n music -f environment.yml",
+      "options": {
+        "cwd": "packages/music"
+      }
     }
   }
 }

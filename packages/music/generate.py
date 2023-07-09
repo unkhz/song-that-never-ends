@@ -1,6 +1,5 @@
 import datetime
 import argparse
-import os
 import torchaudio
 from audiocraft.models import MusicGen
 from pydub import AudioSegment
@@ -45,6 +44,8 @@ def main(args):
         x=audio_values[0, 0].numpy(),
         normalized=True,
     )
+
+    print("Generated " + out_filename)
 
 
 if __name__ == "__main__":
