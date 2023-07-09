@@ -11,9 +11,11 @@ const { SERVER_PORT, SPEECH_VOICE, SPEECH_RATE } = getEnv()
 
 async function readRandomMusicFile(cat: string) {
   const files = await readdir(`audio/${cat}`)
-  const musicFiles = files.filter((file) => file.startsWith('music'))
+  const musicFiles = files.filter((file) => file.endsWith('.mp3'))
   const picked = musicFiles[Math.floor(Math.random() * musicFiles.length)]
-  return `audio/${cat}/${picked}`
+  if (picked) {
+    return `audio/${cat}/${picked}`
+  }
 }
 
 const typingDelay =
@@ -49,7 +51,7 @@ async function run() {
     }
 
     const now = Date.now()
-    if (now - musicStep > 2000) {
+    if (now - musicStep > 7000) {
       musicStep = now
       readRandomMusicFile('ambience').then(async (filename) => {
         if (filename) {

@@ -1,6 +1,8 @@
 import datetime
 import argparse
-from transformers import AutoProcessor, MusicgenForConditionalGeneration
+import os
+import torchaudio
+from audiocraft.models import MusicGen
 from pydub import AudioSegment
 import numpy as np
 
@@ -13,29 +15,43 @@ def write(f, sr, x, normalized=False):
     else:
         y = np.int16(x)
     track = AudioSegment(y.tobytes(), frame_rate=sr, sample_width=2, channels=channels)
-    track.export(f, format="mp3", bitrate="320k")
+    track.export(f, format="mp3", bitrate="32k")
 
 
 def main(args):
-    processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
-    model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
+    descriptions = args.text
+    input_filename = str(args.input[0])
+    category = str(args.category[0])
+    duration = int(args.duration[0])
+    date = int(datetime.datetime.now().timestamp())
+    out_filename = "../server/audio/" + category + "/" + str(date) + ".mp3"
 
-    inputs = processor(
-        text=args.text,
-        padding=True,
-        return_tensors="pt",
+    # Read the melody from the song
+    melody, melody_sr = torchaudio.load(input_filename)
+
+    # Generate music using the melody and the provided description
+    model = MusicGen.get_pretrained("melody")
+    model.set_generation_params(duration=duration)  # generate 8 seconds.
+    audio_values = model.generate_with_chroma(
+        descriptions,
+        melody_wavs=melody[None].expand(1, -1, -1),
+        melody_sample_rate=melody_sr,
+        progress=True,
     )
 
-    audio_values = model.generate(**inputs, max_new_tokens=512)
-    sampling_rate = model.config.audio_encoder.sampling_rate
-    date = int(datetime.datetime.now().timestamp())
-    filename = "../server/audio/" + str(args.cat[0]) + "/" + str(date) + ".mp3"
-    write(f=filename, sr=sampling_rate, x=audio_values[0, 0].numpy(), normalized=True)
+    write(
+        f=out_filename,
+        sr=model.sample_rate,
+        x=audio_values[0, 0].numpy(),
+        normalized=True,
+    )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cat", nargs="+", help="Category of the music")
-    parser.add_argument("--text", nargs="+", help="Text input for music genenration")
+    parser.add_argument("--input", nargs=1, help="Input audio for the music")
+    parser.add_argument("--duration", nargs=1, help="Duration of the music")
+    parser.add_argument("--category", nargs=1, help="Category of the music")
+    parser.add_argument("--text", nargs=1, help="Text input for music genenration")
     args = parser.parse_args()
     main(args)

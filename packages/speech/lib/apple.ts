@@ -22,7 +22,7 @@ async function fileExists(file: string) {
 export async function say(line: string, rate: number, voice: string) {
   await ensureOutputFolder()
   const aiffFile = `audio/voice/${getHash(`${voice},${rate},${line}`)}.aiff`
-  const mp3File = aiffFile.replace('.aiff', '.mp3')
+  const mp3File = aiffFile.replace('.aiff', '.m4a')
 
   if (!(await fileExists(mp3File))) {
     if (!(await fileExists(aiffFile))) {
@@ -37,11 +37,17 @@ export async function say(line: string, rate: number, voice: string) {
       ])
     }
 
-    await execChildProcess('ffmpeg', ['-i', aiffFile, mp3File])
+    await execChildProcess('ffmpeg', [
+      '-i',
+      aiffFile,
+      '-c:a',
+      'aac',
+      '-b:a',
+      '32k',
+      mp3File,
+    ])
 
-    await execChildProcess('rm', [aiffFile]).catch(() => {
-      // it's ok
-    })
+    //await execChildProcess('rm', [aiffFile]).catch(() => {})
   }
 
   return mp3File
