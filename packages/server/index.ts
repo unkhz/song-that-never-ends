@@ -51,7 +51,7 @@ async function run() {
     }
 
     const now = Date.now()
-    if (now - musicStep > 20000) {
+    if (now - musicStep > 18000) {
       musicStep = now
       readRandomMusicFile('ambience').then(async (filename) => {
         if (filename) {

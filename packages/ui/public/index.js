@@ -6,34 +6,62 @@ function createAudioElement(file, volume) {
   return audioEl
 }
 
-function createEcho(audioContext, track, delay, gainValue) {
-  // Now, create a gain node (to control the volume of the echo)
-  const gainNode = audioContext.createGain()
+function createTrack(audioContext, audioEl, gainValue) {
+  const track = audioContext.createMediaElementSource(audioEl)
 
-  // And a delay node
-  const delayNode = audioContext.createDelay(60)
+  const gain = audioContext.createGain()
+  gain.gain.value = gainValue
 
-  // The amount of time in seconds for the initial echo delay
-  delayNode.delayTime.value = delay
+  track.connect(gain)
 
-  // The amount of volume reduction for each echo. This is in the range [0.0, 1.0]
-  gainNode.gain.value = gainValue
-
-  // Connect the original audio track to the delay, and then the delay to the gain
-  track.connect(delayNode).connect(gainNode)
-
-  // Connect the gain back to the delay to create a feedback loop
-  gainNode.connect(delayNode)
-
-  return gainNode
+  return { in: track, gain, out: gain }
 }
 
-function crossfade(audioContext, oldGain, newGain, duration) {
-  newGain.gain.setValueAtTime(0, audioContext.currentTime)
+function createDelay(audioContext, delayValue, gainValue) {
+  // Now, create a gain node (to control the volume of the echo)
+  const gain = audioContext.createGain()
+
+  // And a delay node
+  const delay = audioContext.createDelay(60)
+
+  // The amount of time in seconds for the initial echo delay
+  delay.delayTime.value = delayValue
+
+  // The amount of volume reduction for each echo. This is in the range [0.0, 1.0]
+  gain.gain.value = gainValue
+
+  delay.connect(gain)
+
+  // Connect the gain back to the delay to create a feedback loop
+  gain.connect(delay)
+
+  return { in: delay, gain, out: gain }
+}
+
+function createCompressor(audioContext) {
+  // Add compressor to keep constant volume
+  const compressor = audioContext.createDynamicsCompressor()
+  compressor.threshold.value = -50
+  compressor.knee.value = 20
+  compressor.ratio.value = 15
+  compressor.attack.value = 0
+  compressor.release.value = 1
+
+  return { in: compressor, out: compressor }
+}
+
+function crossfade(audioContext, oldTrack, newTrack, durationSeconds) {
+  newTrack.gain.gain.setValueAtTime(0, audioContext.currentTime)
 
   // When the crossfade starts, reduce the volume of source 1 to 0 and increase the volume of source 2 to 1
-  oldGain.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration)
-  newGain.gain.linearRampToValueAtTime(1, audioContext.currentTime + duration)
+  oldTrack.gain.gain.linearRampToValueAtTime(
+    0,
+    audioContext.currentTime + durationSeconds
+  )
+  newTrack.gain.gain.linearRampToValueAtTime(
+    1,
+    audioContext.currentTime + durationSeconds
+  )
 }
 
 let el
@@ -77,33 +105,35 @@ async function read() {
       const chars = new TextDecoder().decode(chunk).slice(0, -1)
       for (const char of chars.split('\n')) {
         hist = `${hist}${char}`.slice(-8)
-        let oldGain
+        let oldTrack
         if (char.startsWith('play:')) {
           if (!isSnapshot) {
             const audioSrc = char.slice(5)
             const isVoice = audioSrc.startsWith('audio/voice')
-            const audioEl = createAudioElement(audioSrc, isVoice ? 1 : 0.33)
-            const trackGain = audioContext.createGain()
-            audioContext.createMediaElementSource(audioEl).connect(trackGain)
-            if (oldGain) {
-              crossfade(audioContext, oldGain, trackGain, 1)
+            const audioEl = createAudioElement(audioSrc, isVoice ? 1 : 0.38)
+            const track = createTrack(audioContext, audioEl, 1)
+
+            if (oldTrack) {
+              crossfade(audioContext, oldTrack, track, 2)
             }
 
             if (!isVoice) {
-              createEcho(audioContext, trackGain, 1, 0.62).connect(
-                audioContext.destination
-              )
+              const delay = createDelay(audioContext, 1, 0.33)
+              const compressor = createCompressor(audioContext)
+              track.out.connect(compressor.in)
+              compressor.out.connect(delay.in)
+              delay.out.connect(audioContext.destination)
             } else {
-              createEcho(audioContext, trackGain, 0.5, 0.22).connect(
-                audioContext.destination
-              )
+              const delay = createDelay(audioContext, 0.5, 0.22)
+              track.out.connect(delay.in)
+              delay.out.connect(audioContext.destination)
             }
 
             audioEl.addEventListener('ended', () => {
               audioEl.remove()
             })
             audioEl.play()
-            oldGain = trackGain
+            oldTrack = track
           }
         } else {
           if (hist.endsWith('<br><br>')) {
