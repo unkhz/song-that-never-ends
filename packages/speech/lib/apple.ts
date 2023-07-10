@@ -8,7 +8,7 @@ function getHash(string: string) {
 }
 
 async function ensureOutputFolder() {
-  await execChildProcess('mkdir', ['-p', 'audio'])
+  await execChildProcess('mkdir', ['-p', 'audio/voice'])
 }
 
 async function fileExists(file: string) {

@@ -39,18 +39,29 @@ let musicStep = 0
 async function run() {
   const writer = stream.writable.getWriter()
   for await (const char of sing(getCachedSong, typingDelay)) {
+    const now = Date.now()
+
     if (char.startsWith('say:')) {
       generateLineAudioData(char.slice(4)).then(async (filename) => {
         await writer.ready
         await writer.write(`play:${filename}` + '\n')
       })
+      if (now - musicStep > 15000) {
+        musicStep = now
+        readRandomMusicFile('guitar').then(async (filename) => {
+          if (filename) {
+            await writer.ready
+            await writer.write(`play:${filename}` + '\n')
+          }
+        })
+      }
     } else if (char === '\n') {
       writer.ready.then(() => writer.write('<br>' + '\n'))
     } else {
       writer.ready.then(() => writer.write(char + '\n'))
     }
 
-    const now = Date.now()
+    /*
     if (now - musicStep > 18000) {
       musicStep = now
       readRandomMusicFile('ambience').then(async (filename) => {
@@ -60,6 +71,7 @@ async function run() {
         }
       })
     }
+    */
   }
   await writer.ready
   writer.close()

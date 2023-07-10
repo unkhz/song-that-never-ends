@@ -2,12 +2,18 @@
 
 set -e
 
+CATEGORY=guitar
+CATEGORY_INPUTS="../server/audio/guitar-draft.aif"
+CATEGORY_OUTPUT_DIR="../server/audio/$CATEGORY"
+
+mkdir -p "$CATEGORY_OUTPUT_DIR"
+
 while true
 do
-    latest_file=$(ls -t1 ../server/audio/voice/*.aiff | head -n 1)
+    latest_file=$(ls -t1 $CATEGORY_INPUTS | head -n 1)
     time conda run -n .venv python generate.py \
-        --category ambience \
-        --text "8bit soft harmonies and no clear rythm" \
-        --duration 20 \
+        --output "$CATEGORY_OUTPUT_DIR/$(date +%s).mp3" \
+        --text "mellow electric piano and bass" \
+        --duration 40 \
         --input "$latest_file"
 done

@@ -14,16 +14,14 @@ def write(f, sr, x, normalized=False):
     else:
         y = np.int16(x)
     track = AudioSegment(y.tobytes(), frame_rate=sr, sample_width=2, channels=channels)
-    track.export(f, format="mp3", bitrate="32k")
+    track.export(f, format="mp3", bitrate="96k")
 
 
 def main(args):
     descriptions = args.text
-    input_filename = str(args.input[0])
-    category = str(args.category[0])
     duration = int(args.duration[0])
-    date = int(datetime.datetime.now().timestamp())
-    out_filename = "../server/audio/" + category + "/" + str(date) + ".mp3"
+    input_filename = str(args.input[0])
+    output_filename = str(args.output[0])
 
     # Read the melody from the song
     melody, melody_sr = torchaudio.load(input_filename)
@@ -39,20 +37,20 @@ def main(args):
     )
 
     write(
-        f=out_filename,
+        f=output_filename,
         sr=model.sample_rate,
         x=audio_values[0, 0].numpy(),
         normalized=True,
     )
 
-    print("Generated " + out_filename)
+    print("Generated " + output_filename)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", nargs=1, help="Input audio for the music")
     parser.add_argument("--duration", nargs=1, help="Duration of the music")
-    parser.add_argument("--category", nargs=1, help="Category of the music")
+    parser.add_argument("--output", nargs=1, help="File to save the generated music")
     parser.add_argument("--text", nargs=1, help="Text input for music genenration")
     args = parser.parse_args()
     main(args)
