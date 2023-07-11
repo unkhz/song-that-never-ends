@@ -1,0 +1,318 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sing should sing 1`] = `
+[
+  {
+    "content": 1n,
+    "type": "iteration",
+  },
+  {
+    "content": "chorus",
+    "type": "part",
+  },
+  {
+    "content": "iteration 0",
+    "type": "line",
+  },
+  {
+    "content": "i",
+    "type": "char",
+  },
+  {
+    "content": "t",
+    "type": "char",
+  },
+  {
+    "content": "e",
+    "type": "char",
+  },
+  {
+    "content": "r",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": "t",
+    "type": "char",
+  },
+  {
+    "content": "i",
+    "type": "char",
+  },
+  {
+    "content": "o",
+    "type": "char",
+  },
+  {
+    "content": "n",
+    "type": "char",
+  },
+  {
+    "content": " ",
+    "type": "char",
+  },
+  {
+    "content": "0",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": "second line",
+    "type": "line",
+  },
+  {
+    "content": "s",
+    "type": "char",
+  },
+  {
+    "content": "e",
+    "type": "char",
+  },
+  {
+    "content": "c",
+    "type": "char",
+  },
+  {
+    "content": "o",
+    "type": "char",
+  },
+  {
+    "content": "n",
+    "type": "char",
+  },
+  {
+    "content": "d",
+    "type": "char",
+  },
+  {
+    "content": " ",
+    "type": "char",
+  },
+  {
+    "content": "l",
+    "type": "char",
+  },
+  {
+    "content": "i",
+    "type": "char",
+  },
+  {
+    "content": "n",
+    "type": "char",
+  },
+  {
+    "content": "e",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": "verse",
+    "type": "part",
+  },
+  {
+    "content": "la la la",
+    "type": "line",
+  },
+  {
+    "content": "l",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": " ",
+    "type": "char",
+  },
+  {
+    "content": "l",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": " ",
+    "type": "char",
+  },
+  {
+    "content": "l",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": "verse",
+    "type": "part",
+  },
+  {
+    "content": "laa laa laa",
+    "type": "line",
+  },
+  {
+    "content": "l",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": " ",
+    "type": "char",
+  },
+  {
+    "content": "l",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": " ",
+    "type": "char",
+  },
+  {
+    "content": "l",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": 2n,
+    "type": "iteration",
+  },
+  {
+    "content": "chorus",
+    "type": "part",
+  },
+  {
+    "content": "iteration 1",
+    "type": "line",
+  },
+  {
+    "content": "i",
+    "type": "char",
+  },
+  {
+    "content": "t",
+    "type": "char",
+  },
+  {
+    "content": "e",
+    "type": "char",
+  },
+  {
+    "content": "r",
+    "type": "char",
+  },
+  {
+    "content": "a",
+    "type": "char",
+  },
+  {
+    "content": "t",
+    "type": "char",
+  },
+  {
+    "content": "i",
+    "type": "char",
+  },
+  {
+    "content": "o",
+    "type": "char",
+  },
+  {
+    "content": "n",
+    "type": "char",
+  },
+  {
+    "content": " ",
+    "type": "char",
+  },
+  {
+    "content": "1",
+    "type": "char",
+  },
+  {
+    "content": "
+",
+    "type": "char",
+  },
+  {
+    "content": "second line",
+    "type": "line",
+  },
+  {
+    "content": "s",
+    "type": "char",
+  },
+  {
+    "content": "e",
+    "type": "char",
+  },
+  {
+    "content": "c",
+    "type": "char",
+  },
+  {
+    "content": "o",
+    "type": "char",
+  },
+]
+`;
