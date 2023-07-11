@@ -1,6 +1,7 @@
 import { ReadStream } from 'node:fs'
 import {
   IncomingMessage,
+  OutgoingHttpHeaders,
   ServerResponse,
   createServer as createHttpServer,
 } from 'node:http'
@@ -10,7 +11,10 @@ export function createServer(
   getStream: (
     req: IncomingMessage,
     res: ServerResponse<IncomingMessage>
-  ) => Promise<ReadStream | ReadableStream>
+  ) => Promise<{
+    stream?: ReadStream | ReadableStream
+    headers?: OutgoingHttpHeaders
+  }>
 ) {
   const server = createHttpServer(async (req, res) => {
     if (!req.url) {
@@ -19,7 +23,11 @@ export function createServer(
     }
 
     try {
-      const stream = await getStream(req, res)
+      const { stream, headers } = await getStream(req, res)
+
+      if (res.writableEnded) {
+        return
+      }
 
       if (!stream) {
         res.writeHead(404)
@@ -32,6 +40,7 @@ export function createServer(
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET',
         'Access-Control-Allow-Private-Network': 'true',
+        ...headers,
       })
 
       for await (const chunk of stream) {

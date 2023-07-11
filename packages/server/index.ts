@@ -6,6 +6,7 @@ import { createServer } from './lib/server.js'
 import { createReadStream } from 'node:fs'
 import { TextEncoderStream } from 'node:stream/web'
 import { readdir, stat } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
 
 const { SERVER_PORT, SPEECH_VOICE, SPEECH_RATE } = getEnv()
 
@@ -120,10 +121,23 @@ createServer(async (req, res) => {
   if (req.url?.includes('/audio/')) {
     const filename = req.url?.split('/').slice(-2).join('/')
     if ((await stat(`audio/${filename}`)).isFile()) {
-      return createReadStream(`audio/${filename}`)
+      const eTag = createHash('sha1').update(filename).digest('hex')
+      if (req.headers['if-none-match'] === eTag) {
+        res.statusCode = 304
+        res.end()
+        return { stream: undefined }
+      }
+      return {
+        stream: createReadStream(`audio/${filename}`),
+        headers: {
+          'Cache-Control': 'public, max-age=31536000',
+          'Last-Modified': new Date().toUTCString(),
+          ETag: createHash('sha1').update(filename).digest('hex'),
+        },
+      }
     }
   }
-  return forkStream()
+  return { stream: forkStream() }
 }).listen(SERVER_PORT, () => {
   console.log(`Server running at http://127.0.0.1:${SERVER_PORT}/`)
 })
