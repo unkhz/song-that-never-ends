@@ -1,5 +1,5 @@
 import { getEnv } from 'tools'
-import song from 'song'
+import song, { SongPart } from 'song'
 import { say } from 'speech'
 import { sing } from './lib/sing.js'
 import { createServer } from './lib/server.js'
@@ -28,50 +28,82 @@ async function generateLineAudioData(line: string) {
 }
 
 async function getCachedSong(iteration: bigint) {
-  const lines = await song(iteration)
-  for (const line of lines) {
-    await generateLineAudioData(line)
+  const parts = await song(iteration)
+  for (const part of parts) {
+    await generateLineAudioData(part.content)
   }
-  return lines
+  return parts
 }
 
-let musicStep = 0
+type CategoryConfig = {
+  key: string
+  duration: number
+}
+const categories: Record<CategoryConfig['key'], CategoryConfig> = {
+  'mellow-electric-piano-and-bass': {
+    key: 'mellow-electric-piano-and-bass',
+    duration: 25_000,
+  },
+  'romantic-piano-and-harp': {
+    key: 'romantic-piano-and-harp',
+    duration: 45_000,
+  },
+  '8bit-game-music': {
+    key: '8bit-game-music',
+    duration: 45_000,
+  },
+}
+
+function pickCategory() {
+  const keys = Object.keys(categories)
+  const pickedKey = keys[Math.floor(Math.random() * keys.length)]
+  return categories[pickedKey]
+}
+
 async function run() {
   const writer = stream.writable.getWriter()
-  for await (const char of sing(getCachedSong, typingDelay)) {
+  const write = async (line: string) => {
+    await writer.ready
+    await writer.write(line + '\n')
+  }
+
+  let lastMusicTime = 0
+  let category = pickCategory()
+
+  for await (const event of sing(getCachedSong, typingDelay)) {
     const now = Date.now()
-
-    if (char.startsWith('say:')) {
-      generateLineAudioData(char.slice(4)).then(async (filename) => {
-        await writer.ready
-        await writer.write(`play:${filename}` + '\n')
-      })
-      if (now - musicStep > 15000) {
-        musicStep = now
-        readRandomMusicFile('guitar').then(async (filename) => {
-          if (filename) {
-            await writer.ready
-            await writer.write(`play:${filename}` + '\n')
-          }
-        })
+    switch (event.type) {
+      case 'iteration': {
+        category = pickCategory()
+        console.log(`Iteration ${event.content}, ${category.key}`)
+        break
       }
-    } else if (char === '\n') {
-      writer.ready.then(() => writer.write('<br>' + '\n'))
-    } else {
-      writer.ready.then(() => writer.write(char + '\n'))
-    }
-
-    /*
-    if (now - musicStep > 18000) {
-      musicStep = now
-      readRandomMusicFile('ambience').then(async (filename) => {
-        if (filename) {
-          await writer.ready
-          await writer.write(`play:${filename}` + '\n')
+      case 'part': {
+        // TODO
+        break
+      }
+      case 'line': {
+        generateLineAudioData(event.content).then(async (filename) =>
+          write(`play:${filename}` + '\n')
+        )
+        if (now - lastMusicTime > category.duration) {
+          lastMusicTime = now
+          readRandomMusicFile(category.key).then(async (filename) => {
+            if (filename) {
+              await write(`play:${filename}` + '\n')
+            }
+          })
         }
-      })
+        break
+      }
+      case 'char': {
+        if (event.content === '\n') {
+          writer.ready.then(() => writer.write('<br>' + '\n'))
+        } else {
+          writer.ready.then(() => writer.write(event.content + '\n'))
+        }
+      }
     }
-    */
   }
   await writer.ready
   writer.close()

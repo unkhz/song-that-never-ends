@@ -76,7 +76,13 @@ async function generateIteration(iteration: bigint) {
   ])
 }
 
-export default async function song(iteration: bigint) {
+export type SongPart = {
+  type: 'verse' | 'chorus'
+  index: number
+  content: string
+}
+
+export default async function song(iteration: bigint): Promise<SongPart[]> {
   const [chorus, firstVerse, secondVerse, thirdVerse, finalChorus] =
     await generateIteration(iteration)
 
@@ -88,5 +94,12 @@ export default async function song(iteration: bigint) {
     finalChorus,
   })
 
-  return [firstVerse, chorus, secondVerse, chorus, thirdVerse, finalChorus]
+  return [
+    { type: 'verse', index: 0, content: firstVerse },
+    { type: 'chorus', index: 1, content: chorus },
+    { type: 'verse', index: 2, content: secondVerse },
+    { type: 'chorus', index: 3, content: chorus },
+    { type: 'verse', index: 4, content: thirdVerse },
+    { type: 'verse', index: 5, content: finalChorus },
+  ]
 }
