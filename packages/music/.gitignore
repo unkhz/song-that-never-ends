@@ -1,1 +1,3 @@
 .venv
+audio/*
+!audio/guitar-draft.aif

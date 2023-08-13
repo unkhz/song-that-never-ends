@@ -27,7 +27,7 @@ def main(args):
     melody, melody_sr = torchaudio.load(input_filename)
 
     # Generate music using the melody and the provided description
-    model = MusicGen.get_pretrained("melody")
+    model = MusicGen.get_pretrained("melody", device='cuda')
     model.set_generation_params(duration=duration)  # generate 8 seconds.
     audio_values = model.generate_with_chroma(
         descriptions,
@@ -39,7 +39,7 @@ def main(args):
     write(
         f=output_filename,
         sr=model.sample_rate,
-        x=audio_values[0, 0].numpy(),
+        x=audio_values[0, 0].cpu().numpy(),
         normalized=True,
     )
 
