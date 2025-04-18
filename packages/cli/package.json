@@ -15,9 +15,9 @@
     "undici": "^5.22.1"
   },
   "dependencies": {
-    "song": "*",
-    "speech": "*",
-    "tools": "*",
+    "song": "workspace:*",
+    "speech": "workspace:*",
+    "tools": "workspace:*",
     "tsx": "^3.12.7",
     "zod": "^3.21.4"
   }
