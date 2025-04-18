@@ -1,0 +1,18 @@
+# packages/publisher/Taskfile.yml
+version: '3'
+
+tasks:
+  dev:
+    desc: Run in development mode
+    cmds:
+      - npx tsx index.ts
+
+  lint:
+    desc: Run static analysis
+    cmds:
+      - npx tsc --noEmit
+
+  test:
+    desc: Run tests
+    cmds:
+      - npx jest --passWithNoTests

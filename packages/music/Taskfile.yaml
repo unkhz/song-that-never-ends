@@ -1,0 +1,10 @@
+version: '3'
+tasks:
+  dev:
+    desc: Run in development mode
+    cmds:
+      - ./dev.sh
+  install:
+    desc: Install deps with conda
+    cmds:
+      - conda create -n music -f environment.yml

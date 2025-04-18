@@ -1,0 +1,46 @@
+# Root Taskfile.yml
+version: '3'
+
+dotenv:
+  - .env.local
+  - .env
+
+includes:
+  cli:
+    taskfile: packages/cli/Taskfile.yaml
+    dir: packages/cli
+  server:
+    taskfile: packages/server/Taskfile.yaml
+    dir: packages/server
+  song:
+    taskfile: packages/song/Taskfile.yaml
+    dir: packages/song
+  speech:
+    taskfile: packages/speech/Taskfile.yaml
+    dir: packages/speech
+  tools:
+    taskfile: packages/tools/Taskfile.yaml
+    dir: packages/tools
+  ui:
+    taskfile: packages/ui/Taskfile.yaml
+    dir: packages/ui
+
+tasks:
+  lint-all:
+    desc: Lint all packages
+    deps:
+      - cli:lint
+      - server:lint
+      - song:lint
+      - speech:lint
+      - tools:lint
+
+  test-all:
+    desc: Test all packages
+    deps:
+      - cli:test
+      - server:test
+      - song:test
+      - speech:test
+      - tools:test
+      - ui:test
