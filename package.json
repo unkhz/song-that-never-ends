@@ -11,7 +11,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "nx": "16.4.1",
+    "nx": "16.10.0",
     "nx-cloud": "latest"
   }
 }
