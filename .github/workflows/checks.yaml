@@ -32,5 +32,12 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Run pnpm check-all
-        run: pnpm check-all
+      - uses: arduino/setup-task@v2
+        with:
+          version: 3.42.1
+
+      - name: Run test-all
+        run: task test-all
+
+      - name: Run lint-all
+        run: task lint-all

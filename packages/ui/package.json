@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "scripts": {
-    "dev": "serve -l 4000 public",
-    "test": "jest --passWithNoTests"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",

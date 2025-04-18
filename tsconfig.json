@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "nodenext",
-    "target": "ES2019",
+    "target": "ESNext",
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

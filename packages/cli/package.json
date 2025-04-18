@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "scripts": {
-    "dev": "tsx index.ts",
-    "lint": "tsc --noEmit",
-    "test": "jest --passWithNoTests"
-  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -20,9 +15,9 @@
     "undici": "^5.22.1"
   },
   "dependencies": {
-    "song": "*",
-    "speech": "*",
-    "tools": "*",
+    "song": "workspace:*",
+    "speech": "workspace:*",
+    "tools": "workspace:*",
     "tsx": "^3.12.7",
     "zod": "^3.21.4"
   }
