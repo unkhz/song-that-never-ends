@@ -2,8 +2,6 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["ESNext"],
-    "module": "esnext",
-    "moduleResolution": "nodenext",
     "target": "esnext",
     "types": ["node", "jest"]
   }
