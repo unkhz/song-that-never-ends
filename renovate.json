@@ -1,6 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "extends": ["config:best-practices"],
+  "prConcurrentLimit": 0,
+  "packageRules": [
+    {
+      "groupName": "oven/bun",
+      "matchManagers": ["npm", "bun"],
+      "matchPackageNames": ["@types/bun"],
+      "enabled": true
+    },
+    {
+      "groupName": "oven/bun",
+      "matchManagers": ["npm", "bun", "bun-version"],
+      "matchFileNames": [".bun-version", "package.json", "bun.lock"],
+      "enabled": true
+    }
   ]
 }
