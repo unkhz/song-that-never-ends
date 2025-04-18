@@ -41,16 +41,12 @@ type CategoryConfig = {
   duration: number
 }
 const categories: Record<CategoryConfig['key'], CategoryConfig> = {
-  'mellow-electric-piano-and-bass': {
-    key: 'mellow-electric-piano-and-bass',
+  'violin-music': {
+    key: 'violin-music',
     duration: 25_000,
   },
-  'romantic-piano-and-harp': {
-    key: 'romantic-piano-and-harp',
-    duration: 45_000,
-  },
-  '8bit-game-music': {
-    key: '8bit-game-music',
+  'violin-music-chorus': {
+    key: 'violin-music-chorus',
     duration: 45_000,
   },
 }
