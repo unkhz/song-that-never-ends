@@ -27,22 +27,22 @@ importers:
         version: 3.24.3
     devDependencies:
       '@types/jest':
-        specifier: ^29.5.2
+        specifier: 29.5.14
         version: 29.5.14
       '@types/node':
-        specifier: ^20.3.3
+        specifier: 20.17.30
         version: 20.17.30
       jest:
-        specifier: ^29.5.0
+        specifier: 29.7.0
         version: 29.7.0(@types/node@20.17.30)
       test:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: ^5.1.6
+        specifier: 5.8.3
         version: 5.8.3
       undici:
-        specifier: ^5.22.1
+        specifier: 5.29.0
         version: 5.29.0
 
   packages/server:
@@ -61,22 +61,22 @@ importers:
         version: 3.24.3
     devDependencies:
       '@types/jest':
-        specifier: ^29.5.2
+        specifier: 29.5.14
         version: 29.5.14
       '@types/node':
-        specifier: ^20.3.3
+        specifier: 20.17.30
         version: 20.17.30
       jest:
-        specifier: ^29.5.0
+        specifier: 29.7.0
         version: 29.7.0(@types/node@20.17.30)
       test:
         specifier: workspace:*
         version: link:../test
       tsx:
-        specifier: ^3.12.7
+        specifier: 3.14.0
         version: 3.14.0
       typescript:
-        specifier: ^5.1.6
+        specifier: 5.8.3
         version: 5.8.3
 
   packages/song:
@@ -92,19 +92,19 @@ importers:
         version: 3.24.3
     devDependencies:
       '@types/jest':
-        specifier: ^29.5.2
+        specifier: 29.5.14
         version: 29.5.14
       '@types/node':
-        specifier: ^20.3.3
+        specifier: 20.17.30
         version: 20.17.30
       jest:
-        specifier: ^29.5.0
+        specifier: 29.7.0
         version: 29.7.0(@types/node@20.17.30)
       test:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: ^5.1.6
+        specifier: 5.8.3
         version: 5.8.3
 
   packages/speech:
@@ -114,19 +114,19 @@ importers:
         version: link:../tools
     devDependencies:
       '@types/jest':
-        specifier: ^29.5.2
+        specifier: 29.5.14
         version: 29.5.14
       '@types/node':
-        specifier: ^20.3.3
+        specifier: 20.17.30
         version: 20.17.30
       jest:
-        specifier: ^29.5.0
+        specifier: 29.7.0
         version: 29.7.0(@types/node@20.17.30)
       test:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: ^5.1.6
+        specifier: 5.8.3
         version: 5.8.3
 
   packages/test:
@@ -157,16 +157,16 @@ importers:
         version: 3.24.3
     devDependencies:
       '@types/node':
-        specifier: ^20.3.3
+        specifier: 20.17.30
         version: 20.17.30
       jest:
-        specifier: ^29.5.0
+        specifier: 29.7.0
         version: 29.7.0(@types/node@20.17.30)
       test:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: ^5.1.6
+        specifier: 5.8.3
         version: 5.8.3
 
   packages/ui:
@@ -176,19 +176,19 @@ importers:
         version: 14.2.4
     devDependencies:
       '@types/jest':
-        specifier: ^29.5.2
+        specifier: 29.5.14
         version: 29.5.14
       '@types/node':
-        specifier: ^20.3.3
+        specifier: 20.17.30
         version: 20.17.30
       jest:
-        specifier: ^29.5.0
+        specifier: 29.7.0
         version: 29.7.0(@types/node@20.17.30)
       test:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: ^5.1.6
+        specifier: 5.8.3
         version: 5.8.3
 
 packages:
