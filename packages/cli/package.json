@@ -10,7 +10,7 @@
     "@types/node": "22.14.1",
     "jest": "29.7.0",
     "test": "workspace:*",
-    "tsx": "3.14.0",
+    "tsx": "4.19.3",
     "typescript": "5.8.3",
     "undici": "5.29.0"
   },
@@ -18,7 +18,7 @@
     "song": "workspace:*",
     "speech": "workspace:*",
     "tools": "workspace:*",
-    "tsx": "^3.12.7",
+    "tsx": "^4.0.0",
     "zod": "^3.21.4"
   }
 }
