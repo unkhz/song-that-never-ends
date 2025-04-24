@@ -13,6 +13,7 @@
       "groupName": "oven/bun",
       "matchManagers": ["npm", "bun", "bun-version"],
       "matchFileNames": [".bun-version", "package.json", "bun.lock"],
+      "matchPackageNames": ["@types/bun", "oven/bun"],
       "enabled": true
     }
   ]
