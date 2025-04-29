@@ -12,9 +12,15 @@
     },
     {
       "groupName": "oven/bun",
-      "matchManagers": ["npm", "bun", "bun-version"],
-      "matchFileNames": [".bun-version", "package.json", "bun.lock"],
-      "matchPackageNames": ["@types/bun", "oven/bun"],
+      "matchManagers": ["bun-version"],
+      "matchFileNames": [".bun-version"],
+      "enabled": true
+    },
+    {
+      "groupName": "oven/bun",
+      "matchManagers": ["npm", "bun"],
+      "matchFileNames": ["package.json", "bun.lock"],
+      "matchPackageNames": ["oven/bun", "@types/bun"],
       "enabled": true
     },
     {
