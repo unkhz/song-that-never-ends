@@ -16,6 +16,18 @@
       "matchFileNames": [".bun-version", "package.json", "bun.lock"],
       "matchPackageNames": ["@types/bun", "oven/bun"],
       "enabled": true
+    },
+    {
+      "packageRules": [
+        {
+          "matchUpdateTypes": ["patch", "digest"],
+          "matchCurrentVersion": "!/^0/",
+          "platformAutomerge": false,
+          "automerge": true,
+          "automergeType": "pr",
+          "automergeStrategy": "merge-commit"
+        }
+      ]
     }
   ]
 }
