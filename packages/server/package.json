@@ -10,7 +10,7 @@
     "@types/node": "22.15.31",
     "jest": "30.0.0",
     "test": "workspace:*",
-    "tsx": "4.20.2",
+    "tsx": "4.20.3",
     "typescript": "5.8.3"
   },
   "dependencies": {
