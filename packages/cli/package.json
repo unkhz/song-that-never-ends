@@ -7,7 +7,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "29.5.14",
-    "@types/node": "22.15.31",
+    "@types/node": "22.15.32",
     "jest": "30.0.0",
     "test": "workspace:*",
     "tsx": "4.20.3",
