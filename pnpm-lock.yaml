@@ -27,8 +27,8 @@ importers:
         version: 3.25.48
     devDependencies:
       '@types/jest':
-        specifier: 29.5.14
-        version: 29.5.14
+        specifier: 30.0.0
+        version: 30.0.0
       '@types/node':
         specifier: 22.15.32
         version: 22.15.32
@@ -61,8 +61,8 @@ importers:
         version: 3.25.48
     devDependencies:
       '@types/jest':
-        specifier: 29.5.14
-        version: 29.5.14
+        specifier: 30.0.0
+        version: 30.0.0
       '@types/node':
         specifier: 22.15.32
         version: 22.15.32
@@ -92,8 +92,8 @@ importers:
         version: 3.25.48
     devDependencies:
       '@types/jest':
-        specifier: 29.5.14
-        version: 29.5.14
+        specifier: 30.0.0
+        version: 30.0.0
       '@types/node':
         specifier: 22.15.32
         version: 22.15.32
@@ -114,8 +114,8 @@ importers:
         version: link:../tools
     devDependencies:
       '@types/jest':
-        specifier: 29.5.14
-        version: 29.5.14
+        specifier: 30.0.0
+        version: 30.0.0
       '@types/node':
         specifier: 22.15.32
         version: 22.15.32
@@ -176,8 +176,8 @@ importers:
         version: 14.2.4
     devDependencies:
       '@types/jest':
-        specifier: 29.5.14
-        version: 29.5.14
+        specifier: 30.0.0
+        version: 30.0.0
       '@types/node':
         specifier: 22.15.32
         version: 22.15.32
@@ -961,6 +961,9 @@ packages:
 
   '@types/jest@29.5.14':
     resolution: {integrity: sha512-ZN+4sdnLUbo8EVvVc2ao0GFW6oVrQRPn4K2lglySj7APvSrgzxHiNNK99us4WDMi57xxA2yggblIAMNhXOotLQ==}
+
+  '@types/jest@30.0.0':
+    resolution: {integrity: sha512-XTYugzhuwqWjws0CVz8QpM36+T+Dz5mTEBKhNs/esGLnCIlGdRy+Dq78NRjd7ls7r8BC8ZRMOrKlkO1hU0JOwA==}
 
   '@types/node@20.17.57':
     resolution: {integrity: sha512-f3T4y6VU4fVQDKVqJV4Uppy8c1p/sVvS3peyqxyWnzkqXFJLRU7Y1Bl7rMS1Qe9z0v4M6McY0Fp9yBsgHJUsWQ==}
@@ -3360,6 +3363,11 @@ snapshots:
     dependencies:
       expect: 29.7.0
       pretty-format: 29.7.0
+
+  '@types/jest@30.0.0':
+    dependencies:
+      expect: 30.0.0
+      pretty-format: 30.0.0
 
   '@types/node@20.17.57':
     dependencies:
