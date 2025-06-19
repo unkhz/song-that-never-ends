@@ -9,7 +9,7 @@
   "devDependencies": {
     "test": "workspace:*",
     "@types/node": "22.15.32",
-    "jest": "30.0.1",
+    "jest": "30.0.2",
     "typescript": "5.8.3"
   },
   "dependencies": {
