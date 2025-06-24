@@ -30,11 +30,11 @@ importers:
         specifier: 30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: 22.15.32
-        version: 22.15.32
+        specifier: 22.15.33
+        version: 22.15.33
       jest:
         specifier: 30.0.2
-        version: 30.0.2(@types/node@22.15.32)
+        version: 30.0.2(@types/node@22.15.33)
       test:
         specifier: workspace:*
         version: link:../test
@@ -64,11 +64,11 @@ importers:
         specifier: 30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: 22.15.32
-        version: 22.15.32
+        specifier: 22.15.33
+        version: 22.15.33
       jest:
         specifier: 30.0.2
-        version: 30.0.2(@types/node@22.15.32)
+        version: 30.0.2(@types/node@22.15.33)
       test:
         specifier: workspace:*
         version: link:../test
@@ -95,11 +95,11 @@ importers:
         specifier: 30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: 22.15.32
-        version: 22.15.32
+        specifier: 22.15.33
+        version: 22.15.33
       jest:
         specifier: 30.0.2
-        version: 30.0.2(@types/node@22.15.32)
+        version: 30.0.2(@types/node@22.15.33)
       test:
         specifier: workspace:*
         version: link:../test
@@ -117,11 +117,11 @@ importers:
         specifier: 30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: 22.15.32
-        version: 22.15.32
+        specifier: 22.15.33
+        version: 22.15.33
       jest:
         specifier: 30.0.2
-        version: 30.0.2(@types/node@22.15.32)
+        version: 30.0.2(@types/node@22.15.33)
       test:
         specifier: workspace:*
         version: link:../test
@@ -157,11 +157,11 @@ importers:
         version: 3.25.48
     devDependencies:
       '@types/node':
-        specifier: 22.15.32
-        version: 22.15.32
+        specifier: 22.15.33
+        version: 22.15.33
       jest:
         specifier: 30.0.2
-        version: 30.0.2(@types/node@22.15.32)
+        version: 30.0.2(@types/node@22.15.33)
       test:
         specifier: workspace:*
         version: link:../test
@@ -179,11 +179,11 @@ importers:
         specifier: 30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: 22.15.32
-        version: 22.15.32
+        specifier: 22.15.33
+        version: 22.15.33
       jest:
         specifier: 30.0.2
-        version: 30.0.2(@types/node@22.15.32)
+        version: 30.0.2(@types/node@22.15.33)
       test:
         specifier: workspace:*
         version: link:../test
@@ -992,8 +992,8 @@ packages:
   '@types/node@20.17.57':
     resolution: {integrity: sha512-f3T4y6VU4fVQDKVqJV4Uppy8c1p/sVvS3peyqxyWnzkqXFJLRU7Y1Bl7rMS1Qe9z0v4M6McY0Fp9yBsgHJUsWQ==}
 
-  '@types/node@22.15.32':
-    resolution: {integrity: sha512-3jigKqgSjsH6gYZv2nEsqdXfZqIFGAV36XYYjf9KGZ3PSG+IhLecqPnI310RvjutyMwifE2hhhNEklOUrvx/wA==}
+  '@types/node@22.15.33':
+    resolution: {integrity: sha512-wzoocdnnpSxZ+6CjW4ADCK1jVmd1S/J3ArNWfn8FDDQtRm8dkDg7TA+mvek2wNrfCgwuZxqEOiB9B1XCJ6+dbw==}
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -3456,7 +3456,7 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.15.32':
+  '@types/node@22.15.33':
     dependencies:
       undici-types: 6.21.0
 
@@ -4226,7 +4226,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest-cli@30.0.2(@types/node@22.15.32):
+  jest-cli@30.0.2(@types/node@22.15.33):
     dependencies:
       '@jest/core': 30.0.2
       '@jest/test-result': 30.0.2
@@ -4234,7 +4234,7 @@ snapshots:
       chalk: 4.1.2
       exit-x: 0.2.2
       import-local: 3.2.0
-      jest-config: 30.0.2(@types/node@22.15.32)
+      jest-config: 30.0.2(@types/node@22.15.33)
       jest-util: 30.0.2
       jest-validate: 30.0.2
       yargs: 17.7.2
@@ -4307,7 +4307,7 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
-  jest-config@30.0.2(@types/node@22.15.32):
+  jest-config@30.0.2(@types/node@22.15.33):
     dependencies:
       '@babel/core': 7.27.4
       '@jest/get-type': 30.0.1
@@ -4334,7 +4334,7 @@ snapshots:
       slash: 3.0.0
       strip-json-comments: 3.1.1
     optionalDependencies:
-      '@types/node': 22.15.32
+      '@types/node': 22.15.33
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -4828,12 +4828,12 @@ snapshots:
       - supports-color
       - ts-node
 
-  jest@30.0.2(@types/node@22.15.32):
+  jest@30.0.2(@types/node@22.15.33):
     dependencies:
       '@jest/core': 30.0.2
       '@jest/types': 30.0.1
       import-local: 3.2.0
-      jest-cli: 30.0.2(@types/node@22.15.32)
+      jest-cli: 30.0.2(@types/node@22.15.33)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
