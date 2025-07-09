@@ -17,6 +17,6 @@
     "song": "workspace:*",
     "speech": "workspace:*",
     "tools": "workspace:*",
-    "zod": "^3.21.4"
+    "zod": "^4.0.0"
   }
 }
