@@ -19,6 +19,6 @@
     "speech": "workspace:*",
     "tools": "workspace:*",
     "tsx": "^4.0.0",
-    "zod": "^3.21.4"
+    "zod": "^4.0.0"
   }
 }
