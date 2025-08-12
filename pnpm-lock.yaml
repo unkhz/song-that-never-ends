@@ -73,7 +73,7 @@ importers:
         specifier: workspace:*
         version: link:../test
       tsx:
-        specifier: 4.20.3
+        specifier: 4.20.4
         version: 4.20.4
       typescript:
         specifier: 5.9.2
