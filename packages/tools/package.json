@@ -8,7 +8,7 @@
   "license": "ISC",
   "devDependencies": {
     "test": "workspace:*",
-    "@types/node": "22.18.6",
+    "@types/node": "22.18.7",
     "jest": "30.0.5",
     "typescript": "5.9.2"
   },
