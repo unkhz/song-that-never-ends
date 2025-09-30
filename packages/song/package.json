@@ -14,7 +14,7 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "openai": "^3.3.0",
+    "openai": "^5.0.0",
     "tools": "workspace:*",
     "zod": "^4.0.0"
   }
