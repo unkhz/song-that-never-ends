@@ -39,8 +39,8 @@ importers:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: 5.9.2
-        version: 5.9.2
+        specifier: 5.9.3
+        version: 5.9.3
       undici:
         specifier: 7.16.0
         version: 7.16.0
@@ -76,8 +76,8 @@ importers:
         specifier: 4.20.6
         version: 4.20.6
       typescript:
-        specifier: 5.9.2
-        version: 5.9.2
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/song:
     dependencies:
@@ -104,8 +104,8 @@ importers:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: 5.9.2
-        version: 5.9.2
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/speech:
     dependencies:
@@ -126,8 +126,8 @@ importers:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: 5.9.2
-        version: 5.9.2
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/test:
     devDependencies:
@@ -166,8 +166,8 @@ importers:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: 5.9.2
-        version: 5.9.2
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/ui:
     dependencies:
@@ -188,8 +188,8 @@ importers:
         specifier: workspace:*
         version: link:../test
       typescript:
-        specifier: 5.9.2
-        version: 5.9.2
+        specifier: 5.9.3
+        version: 5.9.3
 
 packages:
 
@@ -2346,8 +2346,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.9.2:
-    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -5215,7 +5215,7 @@ snapshots:
 
   typescript@5.8.3: {}
 
-  typescript@5.9.2: {}
+  typescript@5.9.3: {}
 
   undici-types@6.19.8: {}
 
