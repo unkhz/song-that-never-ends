@@ -24,7 +24,7 @@ importers:
         version: 4.20.6
       zod:
         specifier: ^4.0.0
-        version: 4.3.5
+        version: 4.3.6
     devDependencies:
       '@types/jest':
         specifier: 30.0.0
@@ -58,7 +58,7 @@ importers:
         version: link:../tools
       zod:
         specifier: ^4.0.0
-        version: 4.3.5
+        version: 4.3.6
     devDependencies:
       '@types/jest':
         specifier: 30.0.0
@@ -89,7 +89,7 @@ importers:
         version: link:../tools
       zod:
         specifier: ^4.0.0
-        version: 4.3.5
+        version: 4.3.6
     devDependencies:
       '@types/jest':
         specifier: 30.0.0
@@ -154,7 +154,7 @@ importers:
     dependencies:
       zod:
         specifier: ^4.0.0
-        version: 4.3.5
+        version: 4.3.6
     devDependencies:
       '@types/node':
         specifier: 24.10.9
@@ -2434,8 +2434,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@4.3.5:
-    resolution: {integrity: sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==}
+  zod@4.3.6:
+    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
 snapshots:
 
@@ -5322,4 +5322,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@4.3.5: {}
+  zod@4.3.6: {}
