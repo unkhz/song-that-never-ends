@@ -11,7 +11,7 @@
     "@types/node": "24.10.15",
     "jest": "30.0.5",
     "test": "workspace:*",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "dependencies": {
     "serve": "^14.2.0"
