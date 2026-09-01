@@ -24,7 +24,7 @@ importers:
         version: 4.20.6
       zod:
         specifier: ^4.0.0
-        version: 4.3.6
+        version: 4.5.4
     devDependencies:
       '@types/jest':
         specifier: 30.0.0
@@ -58,7 +58,7 @@ importers:
         version: link:../tools
       zod:
         specifier: ^4.0.0
-        version: 4.3.6
+        version: 4.5.4
     devDependencies:
       '@types/jest':
         specifier: 30.0.0
@@ -89,7 +89,7 @@ importers:
         version: link:../tools
       zod:
         specifier: ^4.0.0
-        version: 4.3.6
+        version: 4.5.4
     devDependencies:
       '@types/jest':
         specifier: 30.0.0
@@ -154,7 +154,7 @@ importers:
     dependencies:
       zod:
         specifier: ^4.0.0
-        version: 4.3.6
+        version: 4.5.4
     devDependencies:
       '@types/node':
         specifier: 24.10.15
@@ -1012,6 +1012,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@unrs/resolver-binding-darwin-arm64@1.7.12':
     resolution: {integrity: sha512-C//UObaqVcGKpRMMThzBCDxbqM9YQg2dtWy3OwcERLu+qzLa781AqvGdgqwqakRO+cWCK6dl75ebAcsSozmARg==}
@@ -2431,8 +2432,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@4.3.6:
-    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+  zod@4.5.4:
+    resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
 
 snapshots:
 
@@ -5315,4 +5316,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@4.3.6: {}
+  zod@4.5.4: {}
